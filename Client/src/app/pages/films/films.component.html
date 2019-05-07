@@ -1,0 +1,8 @@
+<app-base-page>
+	<div class="d-flex justify-content-around align-self-start flex-wrap">
+		<ng-template [ngForOf]="films" let-film ngFor>
+			<app-film-preview [film]="film" style="width: 30%; display: inline-flex"></app-film-preview>
+		</ng-template>
+	</div>
+</app-base-page>
+

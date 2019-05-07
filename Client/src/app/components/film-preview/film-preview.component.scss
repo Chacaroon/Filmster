@@ -1,0 +1,12 @@
+@import "~bootstrap/scss/bootstrap-reboot";
+@import "~bootstrap/scss/card";
+
+.card {
+	background-color: $dark;
+	color: $light;
+}
+
+.card:hover {
+	background-color: $gray-700;
+	cursor: pointer;
+}

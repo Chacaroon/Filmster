@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import "assets/scss/bootstrap";
+
+body {
+	background-image: url("~src/assets/img/background.jpg");
+}
+
+.fix-flex-col {
+	flex: 0 0 auto;
+}
+
+router-outlet + * {
+	height: 98%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 1%;
+	margin-bottom: 1%;
+}
+
+.base-block {
+	border-radius: 10px;
+	background-color: rgba(245, 245, 245, 0.8);
+	padding: 1%;
+}

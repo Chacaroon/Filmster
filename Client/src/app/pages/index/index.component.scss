@@ -1,0 +1,10 @@
+@import "../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../node_modules/bootstrap/scss/variables";
+@import "../../../../node_modules/bootstrap/scss/mixins";
+@import "../../../../node_modules/bootstrap/scss/buttons";
+
+.btn-lg {
+	@include button-size($btn-padding-y-lg, 5rem, 1.75rem, $btn-line-height-lg, 3rem);
+}
+
+
