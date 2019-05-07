@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
+using DAL;
+using DAL.Entities;
 using Filmster.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
@@ -34,6 +38,12 @@ namespace Filmster
 			Bootstrap();
 
 			services.AddHttpContextAccessor();
+
+			services.AddDbContext<ApplicationContext>(options =>
+				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+			services.AddIdentityCore<User>()
+				.AddEntityFrameworkStores<ApplicationContext>();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -82,8 +92,6 @@ namespace Filmster
 		private void IntegrateSimpleInjector(IServiceCollection services)
 		{
 			_container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
-
-			services.AddHttpContextAccessor();
 
 			services.AddSingleton<IControllerActivator>(
 				new SimpleInjectorControllerActivator(_container));
