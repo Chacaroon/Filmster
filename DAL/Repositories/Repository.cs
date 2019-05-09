@@ -10,12 +10,12 @@ namespace DAL.Repositories
 {
 	public abstract class Repository<T> : IRepository<T> where T : Entity
 	{
-		public Repository(ApplicationContext dbContext)
+		protected Repository(ApplicationContext dbContext)
 		{
 			DbContext = dbContext;
 		}
 
-		protected DbContext DbContext { get; set; }
+		protected DbContext DbContext { get; }
 
 		public virtual void Add(T item)
 		{
@@ -25,7 +25,7 @@ namespace DAL.Repositories
 
 		public virtual T FindById(long id)
 		{
-			return DbContext.Set<T>().SingleOrDefault(x => x.Id == id);
+			return GetAll(item => item.Id == id).SingleOrDefault();
 		}
 
 		public virtual IQueryable<T> GetAll()
@@ -34,7 +34,8 @@ namespace DAL.Repositories
 		}
 		public virtual IQueryable<T> GetAll(Func<T, bool> predicate)
 		{
-			return DbContext.Set<T>().Where(predicate).AsQueryable();
+			// ReSharper disable once PossibleUnintendedQueryableAsEnumerable
+			return GetAll().Where(predicate).AsQueryable();
 		}
 
 		public virtual void AddRange(IEnumerable<T> item)
@@ -42,6 +43,13 @@ namespace DAL.Repositories
 			DbContext.Set<T>().AddRange(item);
 			DbContext.SaveChanges();
 		}
+
+		public virtual void Update(T item)
+		{
+			DbContext.Entry(item).State = EntityState.Modified;
+			DbContext.SaveChanges();
+		}
+
 		public virtual void DeleteRange(IEnumerable<T> items)
 		{
 			DbContext.Set<T>().RemoveRange(items);
@@ -50,7 +58,6 @@ namespace DAL.Repositories
 
 		public virtual void Delete(T item)
 		{
-
 			DbContext.Set<T>().Remove(item);
 			DbContext.SaveChanges();
 		}
@@ -59,12 +66,6 @@ namespace DAL.Repositories
 		{
 			T item = DbContext.Set<T>().SingleOrDefault(i => i.Id == id);
 			DbContext.Set<T>().Remove(item);
-			DbContext.SaveChanges();
-		}
-
-		public virtual void Update(T item)
-		{
-			DbContext.Entry(item).State = EntityState.Modified;
 			DbContext.SaveChanges();
 		}
 	}

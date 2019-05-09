@@ -8,11 +8,10 @@ namespace SharedKernel.Abstractions.DAL.Repositories
 {
 	public interface IRepository<T> where T : IEntity
 	{
-		void Add(T item);
-		T FindById(long id);
-
-		IQueryable<T> GetAll(Func<T, bool> predicate);
 		IQueryable<T> GetAll();
+		IQueryable<T> GetAll(Func<T, bool> predicate);
+		T FindById(long id);
+		void Add(T item);
 		void AddRange(IEnumerable<T> item);
 		void Update(T item);
 		void Delete(T item);

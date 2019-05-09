@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-	public class GenreRepository : Repository<Genre>, IRepository<Genre>
+	public class GenreRepository : Repository<Genre>
 	{
 		public GenreRepository(ApplicationContext dbContext) 
 			: base(dbContext)

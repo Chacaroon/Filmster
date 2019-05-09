@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-	public class ActorRepository : Repository<Actor>, IRepository<Actor>
+	public class ActorRepository : Repository<Actor>
 	{
 		public ActorRepository(ApplicationContext dbContext) 
 			: base(dbContext)
