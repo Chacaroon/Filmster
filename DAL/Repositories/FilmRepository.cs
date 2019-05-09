@@ -6,9 +6,9 @@ using SharedKernel.Abstractions.DAL.Repositories;
 
 namespace DAL.Repositories
 {
-	public class FilmRepositroy : Repository<Film>, IRepository<Film>
+	public class FilmRepository : Repository<Film>
 	{
-		public FilmRepositroy(ApplicationContext dbContext) 
+		public FilmRepository(ApplicationContext dbContext) 
 			: base(dbContext)
 		{
 		}

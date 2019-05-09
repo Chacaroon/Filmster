@@ -10,18 +10,12 @@ namespace DAL.Repositories
 {
 	public abstract class Repository<T> : IRepository<T> where T : Entity
 	{
-		protected DbContext _dbContext;
-
 		public Repository(ApplicationContext dbContext)
 		{
-			_dbContext = dbContext;
+			DbContext = dbContext;
 		}
 
-		protected DbContext DbContext
-		{
-			get => _dbContext;
-			set => _dbContext = value;
-		}
+		protected DbContext DbContext { get; set; }
 
 		public virtual void Add(T item)
 		{
@@ -63,7 +57,7 @@ namespace DAL.Repositories
 
 		public void DeleteById(long id)
 		{
-			T item = DbContext.Set<T>().Where(i => i.Id == id).SingleOrDefault();
+			T item = DbContext.Set<T>().SingleOrDefault(i => i.Id == id);
 			DbContext.Set<T>().Remove(item);
 			DbContext.SaveChanges();
 		}
