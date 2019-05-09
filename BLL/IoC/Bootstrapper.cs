@@ -1,7 +1,6 @@
-﻿using SimpleInjector;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BLL.Services;
+using SharedKernel.Abstractions.BLL.Services;
+using SimpleInjector;
 
 namespace BLL.IoC
 {
@@ -9,6 +8,9 @@ namespace BLL.IoC
 	{
 		public static void Bootstrap(Container container)
 		{
+			container.Register<ITokenService, TokenService>();
+			container.Register<IAuthService, AuthService>();
+
 			DAL.IoC.Bootstrapper.Bootstrap(container);
 		}
 	}

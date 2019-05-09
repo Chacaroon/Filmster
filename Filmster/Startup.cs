@@ -5,6 +5,7 @@ using DAL.Entities;
 using Filmster.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
@@ -42,7 +43,10 @@ namespace Filmster
 			services.AddDbContext<ApplicationContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddIdentityCore<User>()
+			services.AddIdentity<User, IdentityRole<long>>(options =>
+				{
+					options.Password.RequireNonAlphanumeric = false;
+				})
 				.AddEntityFrameworkStores<ApplicationContext>();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

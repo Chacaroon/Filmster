@@ -7,5 +7,9 @@ namespace DAL.Entities
 {
 	public class User : IdentityUser<long>
 	{
+		public User(string userName)
+		{
+			UserName = userName;
+		}
 	}
 }
