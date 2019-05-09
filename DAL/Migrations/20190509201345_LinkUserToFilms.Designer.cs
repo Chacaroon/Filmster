@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20190509201345_LinkUserToFilms")]
+    partial class LinkUserToFilms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,23 +32,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Actors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Name = "actor1"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Name = "actor2"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Name = "actor3"
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Film", b =>
@@ -74,35 +59,6 @@ namespace DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Films");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Duration = new TimeSpan(0, 0, 0, 0, 0),
-                            Rating = (byte)0,
-                            Title = "film1",
-                            UserId = 1L,
-                            Year = 0
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Duration = new TimeSpan(0, 0, 0, 0, 0),
-                            Rating = (byte)0,
-                            Title = "film2",
-                            UserId = 2L,
-                            Year = 0
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Duration = new TimeSpan(0, 0, 0, 0, 0),
-                            Rating = (byte)0,
-                            Title = "film3",
-                            UserId = 3L,
-                            Year = 0
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.FilmActor", b =>
@@ -116,33 +72,6 @@ namespace DAL.Migrations
                     b.HasIndex("FilmId");
 
                     b.ToTable("FilmActor");
-
-                    b.HasData(
-                        new
-                        {
-                            ActorId = 2L,
-                            FilmId = 1L
-                        },
-                        new
-                        {
-                            ActorId = 3L,
-                            FilmId = 1L
-                        },
-                        new
-                        {
-                            ActorId = 2L,
-                            FilmId = 2L
-                        },
-                        new
-                        {
-                            ActorId = 1L,
-                            FilmId = 3L
-                        },
-                        new
-                        {
-                            ActorId = 3L,
-                            FilmId = 3L
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.FilmGenre", b =>
@@ -156,33 +85,6 @@ namespace DAL.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("FilmGenre");
-
-                    b.HasData(
-                        new
-                        {
-                            FilmId = 1L,
-                            GenreId = 2L
-                        },
-                        new
-                        {
-                            FilmId = 1L,
-                            GenreId = 3L
-                        },
-                        new
-                        {
-                            FilmId = 2L,
-                            GenreId = 2L
-                        },
-                        new
-                        {
-                            FilmId = 3L,
-                            GenreId = 1L
-                        },
-                        new
-                        {
-                            FilmId = 3L,
-                            GenreId = 3L
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.FilmProducer", b =>
@@ -196,33 +98,6 @@ namespace DAL.Migrations
                     b.HasIndex("ProducerId");
 
                     b.ToTable("FilmProducer");
-
-                    b.HasData(
-                        new
-                        {
-                            FilmId = 1L,
-                            ProducerId = 2L
-                        },
-                        new
-                        {
-                            FilmId = 1L,
-                            ProducerId = 3L
-                        },
-                        new
-                        {
-                            FilmId = 2L,
-                            ProducerId = 2L
-                        },
-                        new
-                        {
-                            FilmId = 3L,
-                            ProducerId = 1L
-                        },
-                        new
-                        {
-                            FilmId = 3L,
-                            ProducerId = 3L
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Genre", b =>
@@ -236,23 +111,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Name = "genre1"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Name = "genre2"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Name = "genre3"
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Producer", b =>
@@ -266,23 +124,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Producers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Name = "producer1"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Name = "producer2"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Name = "producer3"
-                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.User", b =>
@@ -335,47 +176,6 @@ namespace DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "ab2c9245-c759-4bed-9f9b-a05380f52bc7",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEb5DzZar8HjtlAvXP7T0IQ6OK3NbogVhfd8UjSgHGSrULRgRzLKnS+jsH/in4SWNw==",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "e3e279a3-9d3e-48b8-8210-ec3d8fb38d81",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedUserName = "USER1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL36Hg3EDZeIxvDL4f0RJcFy4/3z5AkJiUTd2llQPrI9DveORH2//9PZ9IHx9190tg==",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "user1"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "bd2fdfc6-47b0-4e4e-b1ed-ba8d0dbd0e8d",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedUserName = "USER2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGVJi0fJkeiZWPx5WsAlg4yMaSBz58B+hY6PEUnh6ZEpQJ7NDL8MGrmbP9LHFu5t9g==",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "user2"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<long>", b =>

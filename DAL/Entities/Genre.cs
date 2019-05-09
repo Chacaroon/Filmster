@@ -7,6 +7,17 @@ namespace DAL.Entities
 {
 	public class Genre : Entity
 	{
+		public Genre()
+		{
+			FilmGenres = new List<FilmGenre>();
+		}
+
+		public Genre(string name)
+			: base()
+		{
+			Name = name;
+		}
+
 		public string Name { get; set; }
 
 		public IEnumerable<FilmGenre> FilmGenres { get; set; }
