@@ -6,6 +6,10 @@ namespace DAL.Entities
 {
 	public class Actor : Entity
 	{
+		public string Name { get; set; }
+
+		public IEnumerable<FilmActor> FilmActors { get; set; }
+
 		public Actor()
 		{
 			FilmActors = new List<FilmActor>();
@@ -16,9 +20,5 @@ namespace DAL.Entities
 		{
 			Name = name;
 		}
-
-		public string Name { get; set; }
-
-		public IEnumerable<FilmActor> FilmActors { get; set; }
 	}
 }

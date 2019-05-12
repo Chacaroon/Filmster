@@ -10,6 +10,7 @@ namespace BLL.IoC
 		{
 			container.Register<ITokenService, TokenService>();
 			container.Register<IAuthService, AuthService>();
+			container.Register<IFilmService, FilmService>();
 
 			DAL.IoC.Bootstrapper.Bootstrap(container);
 		}

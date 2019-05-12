@@ -5,8 +5,12 @@ using System.Text;
 namespace DAL.Entities
 {
     public class Producer : Entity
-    {
-	    public Producer()
+	{
+		public string Name { get; set; }
+
+		public IEnumerable<FilmProducer> FilmProducers { get; set; }
+
+		public Producer()
 	    {
 		    FilmProducers = new List<FilmProducer>();
 	    }
@@ -16,9 +20,5 @@ namespace DAL.Entities
 	    {
 		    Name = name;
 	    }
-
-	    public string Name { get; set; }
-
-	    public IEnumerable<FilmProducer> FilmProducers { get; set; }
     }
 }
