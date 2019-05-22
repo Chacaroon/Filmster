@@ -13,7 +13,11 @@ namespace Filmster.IoC.Profiles
 	{
 		public FilmMappingProfile()
 		{
-			CreateMap<AddFilmViewModel, IFilmDTO>()
+			CreateMap<AddFilmViewModel, IAddFilmDTO>()
+				.ForMember(dto => dto.Duration,
+				           opt => opt.MapFrom(model => TimeSpan.Parse(model.Duration)));
+
+			CreateMap<UpdateFilmViewModel, IUpdateFilmDTO>()
 				.ForMember(dto => dto.Duration,
 				           opt => opt.MapFrom(model => TimeSpan.Parse(model.Duration)));
 		}

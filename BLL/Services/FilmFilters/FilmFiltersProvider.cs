@@ -8,7 +8,7 @@ namespace BLL.Services.FilmFilters
 {
 	static class FilmFiltersProvider
 	{
-		public static IQueryable<Film> FilterFilms(IQueryable<Film> filmsQuery, IFilmsFilters filters)
+		public static IQueryable<Film> FilterFilms(ref IQueryable<Film> filmsQuery, IFilmsFilters filters)
 		{
 			Filter<IQueryable<Film>> filtersPipeline = new GenresFilter();
 
@@ -17,7 +17,7 @@ namespace BLL.Services.FilmFilters
 				.SetNextFilter(new ProducersFilter())
 				.SetNextFilter(new UserNameFilter());
 
-			return filtersPipeline.Handle(filmsQuery, filters);
+			return filtersPipeline.Handle(ref filmsQuery, filters);
 		}
 	}
 }

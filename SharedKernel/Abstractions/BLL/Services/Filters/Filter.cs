@@ -16,10 +16,10 @@ namespace SharedKernel.Abstractions.BLL.Services.Filters
 			return filter;
 		}
 
-		public virtual T Handle(T filmsQuery, IFilmsFilters filters)
+		public virtual T Handle(ref T filmsQuery, IFilmsFilters filters)
 		{
 			if (!NextFilter.IsNullOrEmpty())
-				return NextFilter.Handle(filmsQuery, filters);
+				return NextFilter.Handle(ref filmsQuery, filters);
 
 			return filmsQuery;
 		}

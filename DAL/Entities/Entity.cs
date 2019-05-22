@@ -8,5 +8,10 @@ namespace DAL.Entities
 	public class Entity : IEntity
 	{
 		public long Id { get; set; }
+
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
 	}
 }

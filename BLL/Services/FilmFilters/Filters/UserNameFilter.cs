@@ -11,12 +11,12 @@ namespace BLL.Services.FilmFilterService.Filters
 {
 	class UserNameFilter : Filter<IQueryable<Film>>
 	{
-		public override IQueryable<Film> Handle(IQueryable<Film> filmsQuery, IFilmsFilters filters)
+		public override IQueryable<Film> Handle(ref IQueryable<Film> filmsQuery, IFilmsFilters filters)
 		{
 			if (!filters.UserName.IsNullOrEmpty())
 				filmsQuery = FilterByUserName(filmsQuery, filters.UserName);
 
-			return base.Handle(filmsQuery, filters);
+			return base.Handle(ref filmsQuery, filters);
 		}
 
 		private IQueryable<Film> FilterByUserName(IQueryable<Film> filmsQuery, string userName)

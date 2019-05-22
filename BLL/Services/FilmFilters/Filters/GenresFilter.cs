@@ -11,12 +11,12 @@ namespace BLL.Services.FilmFilterService.Filters
 {
 	class GenresFilter : Filter<IQueryable<Film>>
 	{
-		public override IQueryable<Film> Handle(IQueryable<Film> filmsQuery, IFilmsFilters filters)
+		public override IQueryable<Film> Handle(ref IQueryable<Film> filmsQuery, IFilmsFilters filters)
 		{
 			if (!filters.GenreIds.IsNullOrEmpty())
 				filmsQuery = FilterByGenres(filmsQuery, filters.GenreIds);
 
-			return base.Handle(filmsQuery, filters);
+			return base.Handle(ref filmsQuery, filters);
 		}
 
 		private IQueryable<Film> FilterByGenres(IQueryable<Film> filmsQuery, IEnumerable<long> genreIds)

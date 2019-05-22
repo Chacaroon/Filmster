@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Abstractions.BLL.DTOs.Films;
 using SharedKernel.Abstractions.BLL.Services;
+using SharedKernel.Exceptions;
 
 namespace Filmster.Controllers
 {
@@ -27,9 +28,17 @@ namespace Filmster.Controllers
 
 		// GET: api/Films
 		[HttpGet]
-		public ActionResult<IEnumerable<FilmViewModel>> Get([FromQuery] FilmsFiltersQuery filters, [FromQuery] string orderBy)
+		public ActionResult<FilmsResponseViewModel> Get([FromQuery] FilmsFiltersQuery filters, [FromQuery] string orderBy)
 		{
-			return Ok(Mapper.Map<IEnumerable<FilmViewModel>>(_filmService.GetAll(filters, orderBy)));
+			var response = Mapper.Map<FilmsResponseViewModel>(_filmService.GetAll(filters, orderBy));
+
+			return Ok(response);
+		}
+
+		[HttpGet("{query}")]
+		public ActionResult<IEnumerable<FilmViewModel>> Get(string query)
+		{
+			return Ok(Mapper.Map<IEnumerable<FilmViewModel>>(_filmService.FindByTitle(query)));
 		}
 
 		// GET: api/Films/5
@@ -54,19 +63,31 @@ namespace Filmster.Controllers
 				return BadRequest();
 			}
 
-			return CreatedAtAction("Get", new { FilmId = filmId });
+			return CreatedAtAction(nameof(Get), new { Id = filmId }, null);
 		}
 
 		// PUT: api/Films/5
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		[HttpPut]
+		public void Put([FromBody] UpdateFilmViewModel model)
 		{
+			_filmService.Update(Mapper.Map<IUpdateFilmDTO>(model));
 		}
 
 		// DELETE: api/ApiWithActions/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public IActionResult Delete(long id)
 		{
+
+			try
+			{
+				_filmService.Delete(id);
+			}
+			catch (AccessDenyException)
+			{
+				return Forbid();
+			}
+
+			return Ok();
 		}
 	}
 }

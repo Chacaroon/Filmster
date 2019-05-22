@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.Configuration;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -96,6 +98,12 @@ namespace Filmster
 
 			InitializeContainer(app);
 
+			app.UseCors(builder =>
+							builder.AllowAnyHeader()
+								   .AllowAnyMethod()
+								   .AllowCredentials()
+								   .WithOrigins("http://localhost:4200", "https://filmster.azurewebsite.com"));
+
 			app.UseHttpsRedirection();
 
 			app.UseAuthentication();
@@ -115,6 +123,9 @@ namespace Filmster
 			Bootstrapper.Bootstrap(_container);
 
 			MapperBootstrapper.Bootstrap(_cfg);
+
+			_cfg.ForAllPropertyMaps(pm => !pm.Ignored,
+									(pm, c) => c.PreCondition(o => !o.GetType().IsDefaultValue(o)));
 
 			Mapper.Initialize(_cfg);
 		}

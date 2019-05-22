@@ -5,7 +5,6 @@ using Filmster.ViewModels.Auth;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Abstractions.BLL.DTOs.Auth;
 using SharedKernel.Abstractions.BLL.Services;
-using SharedKernel.Abstractions.PL.ViewModels.Auth;
 using SharedKernel.Exceptions;
 
 namespace Filmster.Controllers
@@ -22,16 +21,16 @@ namespace Filmster.Controllers
 		}
 
 		[HttpPost("Login")]
-		public async Task<ActionResult<ILoginSuccessViewModel>> Login([FromBody] LoginViewModel model)
+		public async Task<ActionResult<LoginSuccessViewModel>> Login([FromBody] LoginViewModel model)
 		{
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
-			ILoginSuccessViewModel res;
+			LoginSuccessViewModel res;
 
 			try
 			{
-				res = Mapper.Map<ILoginSuccessViewModel>(await _authService.LoginAsync(Mapper.Map<ILoginDTO>(model)));
+				res = Mapper.Map<LoginSuccessViewModel>(await _authService.LoginAsync(Mapper.Map<ILoginDTO>(model)));
 			}
 			catch (UserNotFoundException e)
 			{
@@ -46,16 +45,16 @@ namespace Filmster.Controllers
 		}
 
 		[HttpPost("Register")]
-		public async Task<ActionResult<ILoginSuccessViewModel>> Register([FromBody] RegisterViewModel model)
+		public async Task<ActionResult<LoginSuccessViewModel>> Register([FromBody] RegisterViewModel model)
 		{
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
-			ILoginSuccessViewModel res;
+			LoginSuccessViewModel res;
 
 			try
 			{
-				res = Mapper.Map<ILoginSuccessViewModel>(
+				res = Mapper.Map<LoginSuccessViewModel>(
 					await _authService.RegisterAsync(Mapper.Map<IRegisterDTO>(model)));
 			}
 			catch (UserNotRegisteredException e)
@@ -67,16 +66,16 @@ namespace Filmster.Controllers
 		}
 
 		[HttpPost("RefreshToken")]
-		public async Task<ActionResult<ILoginSuccessViewModel>> RefreshToken([FromBody] RefreshTokenViewModel model)
+		public async Task<ActionResult<LoginSuccessViewModel>> RefreshToken([FromBody] RefreshTokenViewModel model)
 		{
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
-			ILoginSuccessViewModel res;
+			LoginSuccessViewModel res;
 
 			try
 			{
-				res = Mapper.Map<ILoginSuccessViewModel>(
+				res = Mapper.Map<LoginSuccessViewModel>(
 					await _authService.RefreshTokenAsync(Mapper.Map<IRefreshTokenDTO>(model)));
 			}
 			catch (RefreshTokenException e)
