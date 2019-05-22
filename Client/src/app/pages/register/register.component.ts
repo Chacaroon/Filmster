@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {AuthService} from '../../services/auth/auth.service';
-import {RegisterModel} from '../../models/register-model';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
+import { RegisterModel } from '../../models/auth/register-model';
 
 @Component({
 	selector: 'app-register',

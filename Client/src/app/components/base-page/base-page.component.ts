@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FiltersService } from '../../services/fiters/filters.service';
+import { Filters } from '../../models/filters/filters';
 
 @Component({
 	selector: 'app-base-page',
@@ -7,10 +9,15 @@ import {Component, OnInit} from '@angular/core';
 })
 export class BasePageComponent implements OnInit {
 
-	constructor() {
+	filters: Filters;
+
+	constructor(
+		private filtersService: FiltersService) {
 	}
 
 	ngOnInit() {
+		this.filtersService.filters
+			.subscribe(value => this.filters = value);
 	}
 
 }

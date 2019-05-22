@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../../../environments/environment';
-import {HttpClient, HttpEvent} from '@angular/common/http';
-import {UserService} from '../user/user.service';
-import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { HttpClient, HttpEvent } from '@angular/common/http';
+import { UserService } from '../user/user.service';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class TokenService {
 
-	private apiUrl = environment.apiUrl + '/Token';
+	private apiUrl = environment.apiUrl + '/Auth/RefreshToken';
 
 	constructor(private http: HttpClient
 		, private userService: UserService) {
@@ -32,7 +32,7 @@ export class TokenService {
 
 	public refreshToken(): Observable<HttpEvent<any>> {
 		return this.http.post<any>(this.apiUrl, {
-			token: this.Token,
+			accessToken: this.Token,
 			userName: this.userService.User
 		})
 			.pipe(tap(res => {

@@ -1,9 +1,9 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {TokenService} from './token.service';
-import {Observable, throwError} from 'rxjs';
-import {AuthService} from '../auth/auth.service';
-import {catchError, mergeMap, retryWhen, scan, takeWhile} from 'rxjs/operators';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { TokenService } from './token.service';
+import { Observable, throwError } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+import { catchError, mergeMap, retryWhen, scan, takeWhile } from 'rxjs/operators';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -53,9 +53,9 @@ export class JwtInterceptor implements HttpInterceptor {
 					});
 					return next.handle(request);
 				})
-				, catchError(err1 => {
+				, catchError(err => {
 					this.authService.logout();
-					return throwError(err1);
+					return throwError(err);
 				}));
 	}
 }

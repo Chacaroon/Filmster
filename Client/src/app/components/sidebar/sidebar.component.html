@@ -1,0 +1,16 @@
+<div *ngIf="filters">
+	<span>Жанры</span>
+	<div *ngFor="let filter of filters.genres">
+		{{filter.name}}
+	</div>
+	<br>
+	<span>Актёры</span>
+	<div *ngFor="let filter of filters.actors">
+		{{filter.name}}
+	</div>
+	<br>
+	<span>Продюсеры</span>
+	<div *ngFor="let filter of filters.producers">
+		{{filter.name}}
+	</div>
+</div>

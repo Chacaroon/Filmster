@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {TokenService} from '../../services/token/token.service';
-import {UserService} from '../../services/user/user.service';
-import {AuthService} from '../../services/auth/auth.service';
-import {NavigationEnd, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { TokenService } from '../../services/token/token.service';
+import { UserService } from '../../services/user/user.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
 	selector: 'app-header',
@@ -14,8 +14,8 @@ export class HeaderComponent implements OnInit {
 	public isLoggedOn: boolean;
 
 	constructor(private tokenService: TokenService
-		, private userService: UserService
-		, private authService: AuthService
+		, protected userService: UserService
+		, protected authService: AuthService
 		, private router: Router) {
 	}
 

@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {AddFilmComponent} from './add-film.component';
+import { AddFilmComponent } from './add-film.component';
 
 describe('AddFilmComponent', () => {
 	let component: AddFilmComponent;
