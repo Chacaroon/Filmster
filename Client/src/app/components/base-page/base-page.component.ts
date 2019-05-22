@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FiltersService } from '../../services/fiters/filters.service';
 import { Filters } from '../../models/filters/filters';
+import { FilmsService } from '../../services/films/films.service';
 
 @Component({
 	selector: 'app-base-page',
@@ -12,11 +12,11 @@ export class BasePageComponent implements OnInit {
 	filters: Filters;
 
 	constructor(
-		private filtersService: FiltersService) {
+		private filmsService: FilmsService) {
 	}
 
 	ngOnInit() {
-		this.filtersService.filters
+		this.filmsService.filtersObservable
 			.subscribe(value => this.filters = value);
 	}
 

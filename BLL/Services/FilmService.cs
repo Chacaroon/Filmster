@@ -16,6 +16,7 @@ using BLL.DTOs.Filters;
 using BLL.Services.FilmFilters;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Abstractions.BLL.DTOs.Actors;
+using SharedKernel.Abstractions.BLL.DTOs.Filters;
 using SharedKernel.Abstractions.BLL.DTOs.Genres;
 using SharedKernel.Abstractions.BLL.DTOs.Producers;
 using SharedKernel.Exceptions;
@@ -37,39 +38,29 @@ namespace BLL.Services
 
 		public IFilmsResponseDTO GetAll(IFilmsFilters filters, string orderBy)
 		{
-			var response = new FilmsResponseDTO();
-
 			var filmsQuery = _filmRepository.GetAll()
 											.AsNoTracking();
 
 			FilmFiltersProvider.FilterFilms(ref filmsQuery, filters);
 
-			var films = filmsQuery.ToList();
-
-			response.Films = Mapper.Map<IEnumerable<IFilmDTO>>(films);
-
-			// TODO: Refactor adding filters to FilmResponseDTOs
-			response.Filters = new FiltersDTO
-			{
-				Genres = films.SelectMany(f => f.FilmGenres.Select(fg => fg.Genre)).Distinct().Select(Mapper.Map<IGenreDTO>),
-				Producers = films.SelectMany(f => f.FilmProducers.Select(fp => fp.Producer)).Distinct().Select(Mapper.Map<IProducerDTO>),
-				Actors = films.SelectMany(f => f.FilmActors.Select(fa => fa.Actor)).Distinct().Select(Mapper.Map<IActorDTO>)
-			};
+			var response = Mapper.Map<IFilmsResponseDTO>(filmsQuery);
 
 			return response;
+		}
+
+		public IFilmsResponseDTO FindByTitle(string query)
+		{
+			var films = _filmRepository
+				.GetAll(f => EF.Functions.Like(
+							f.Title,
+							$"%{query}%"));
+
+			return Mapper.Map<IFilmsResponseDTO>(films);
 		}
 
 		public IFilmDTO GetById(long id)
 		{
 			return Mapper.Map<IFilmDTO>(_filmRepository.FindById(id));
-		}
-
-		public IEnumerable<IFilmDTO> FindByTitle(string query)
-		{
-			return Mapper.Map<IEnumerable<IFilmDTO>>(_filmRepository
-														 .GetAll(f => EF.Functions.Like(
-																			f.Title.ToLower(), 
-																			$"%{query}%".ToLower())));
 		}
 
 		public async Task<long> Add(IAddFilmDTO dto)

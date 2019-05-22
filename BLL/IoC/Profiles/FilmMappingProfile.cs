@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using BLL.DTOs.Films;
 using DAL.Entities;
+using SharedKernel.Abstractions.BLL.DTOs.Actors;
 using SharedKernel.Abstractions.BLL.DTOs.Films;
+using SharedKernel.Abstractions.BLL.DTOs.Genres;
+using SharedKernel.Abstractions.BLL.DTOs.Producers;
 
 namespace BLL.IoC.Profiles
 {
@@ -33,6 +37,18 @@ namespace BLL.IoC.Profiles
 				.ForMember(dto => dto.Genres, opt => opt.MapFrom(film => film.FilmGenres.Select(fg => fg.Genre).ToList()))
 				.ForMember(dto => dto.Actors, opt => opt.MapFrom(film => film.FilmActors.Select(fa => fa.Actor).ToList()))
 				.ForMember(dto => dto.Producers, opt => opt.MapFrom(film => film.FilmProducers.Select(fp => fp.Producer).ToList()));
+
+			CreateMap<IEnumerable<Film>, IFilmsResponseDTO>()
+				.ForMember(res => res.Films, opt => opt.MapFrom(films => films))
+				.AfterMap((films, dto) =>
+				{
+					dto.Filters = new FiltersDTO()
+					{
+						Genres = films.SelectMany(f => f.FilmGenres.Select(fg => fg.Genre)).Distinct().Select(Mapper.Map<IGenreDTO>),
+						Producers = films.SelectMany(f => f.FilmProducers.Select(fp => fp.Producer)).Distinct().Select(Mapper.Map<IProducerDTO>),
+						Actors = films.SelectMany(f => f.FilmActors.Select(fa => fa.Actor)).Distinct().Select(Mapper.Map<IActorDTO>)
+					};
+				});
 		}
 	}
 }

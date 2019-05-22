@@ -35,10 +35,10 @@ namespace Filmster.Controllers
 			return Ok(response);
 		}
 
-		[HttpGet("{query}")]
-		public ActionResult<IEnumerable<FilmViewModel>> Get(string query)
+		[HttpGet("Search/{query}")]
+		public ActionResult<FilmsResponseViewModel> Get(string query)
 		{
-			return Ok(Mapper.Map<IEnumerable<FilmViewModel>>(_filmService.FindByTitle(query)));
+			return Ok(Mapper.Map<FilmsResponseViewModel>(_filmService.FindByTitle(query)));
 		}
 
 		// GET: api/Films/5
