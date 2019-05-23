@@ -1,4 +1,6 @@
-<div *ngIf="filters">
+<app-search-box></app-search-box>
+<br>
+<div *ngIf="filters && !filmsService.isLoading">
 	<span>Жанры</span>
 	<div *ngFor="let filter of filters.genres">
 		{{filter.name}}

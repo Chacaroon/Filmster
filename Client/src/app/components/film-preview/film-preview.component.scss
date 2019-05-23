@@ -10,3 +10,10 @@
 	background-color: $gray-700;
 	cursor: pointer;
 }
+
+@include media-breakpoint-up(lg)
+{
+	.film-preview {
+		width: 30%;
+	}
+}

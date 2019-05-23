@@ -20,6 +20,7 @@ import { AddFilmComponent } from './pages/add-film/add-film.component';
 import { FilmComponent } from './pages/film/film.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
 	declarations: [
@@ -34,7 +35,8 @@ import { SearchBoxComponent } from './components/search-box/search-box.component
 		AddFilmComponent,
 		FilmComponent,
 		SidebarComponent,
-		SearchBoxComponent
+		SearchBoxComponent,
+		SpinnerComponent
 	],
 	imports: [
 		BrowserModule,

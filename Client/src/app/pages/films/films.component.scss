@@ -1,0 +1,13 @@
+@import "~bootstrap/scss/bootstrap-reboot";
+
+@include media-breakpoint-up(sm) {
+	.film-preview {
+		width: 45%;
+	}
+}
+
+@include media-breakpoint-up(lg) {
+	.film-preview {
+		width: 30%;
+	}
+}

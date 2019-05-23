@@ -5,12 +5,14 @@ import { Observable, Subject, } from 'rxjs';
 import { Film } from '../../models/films/film';
 import { FilmsResponse } from '../../models/films/films-response';
 import { Filters } from '../../models/filters/filters';
-import { debounceTime, filter, map, switchAll } from 'rxjs/operators';
+import { debounceTime, filter, map, switchAll, tap } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class FilmsService {
+
+	public isLoading: boolean;
 
 	private filtersSubject: Subject<Filters>;
 	private filmsSubject: Subject<Film[]>;
@@ -20,6 +22,8 @@ export class FilmsService {
 
 		this.filtersSubject = new Subject<Filters>();
 		this.filmsSubject = new Subject<Film[]>();
+
+		this.isLoading = true;
 	}
 
 	public get filmsObservable() {
@@ -32,7 +36,9 @@ export class FilmsService {
 
 	public updateFilmsList(): void {
 		this.getFilms()
+			.pipe(tap(() => this.isLoading = true))
 			.subscribe(value => {
+				this.isLoading = false;
 				this.filmsSubject.next(value.films);
 				this.filtersSubject.next(value.filters);
 			});
@@ -48,6 +54,8 @@ export class FilmsService {
 				debounceTime(1000),
 				filter((value: string) => value.length > 3 || value.length === 0),
 				map(query => {
+					this.isLoading = true;
+
 					return query.length > 0
 						? this.http.get<FilmsResponse>(`${environment.apiUrl}/Films/Search/${query}`)
 						: this.getFilms();
@@ -55,6 +63,8 @@ export class FilmsService {
 				switchAll()
 			)
 			.subscribe((value: FilmsResponse) => {
+				this.isLoading = false;
+
 				this.filmsSubject.next(value.films);
 				this.filtersSubject.next(value.filters);
 			});

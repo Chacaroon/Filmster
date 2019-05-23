@@ -1,8 +1,7 @@
 <app-base-page>
-	<div class="d-flex justify-content-around align-self-start flex-wrap">
-		<ng-template [ngForOf]="films" let-film ngFor>
-			<app-film-preview [film]="film" style="width: 30%; display: inline-flex"></app-film-preview>
+		<app-spinner *ngIf="filmsService.isLoading" class="align-self-center"></app-spinner>
+		<ng-template [ngIf]="!filmsService.isLoading">
+			<app-film-preview *ngFor="let film of films" [film]="film" class="film-preview"></app-film-preview>
 		</ng-template>
-	</div>
 </app-base-page>
 
