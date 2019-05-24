@@ -2,8 +2,30 @@
 	height: 100%;
 }
 
+.base-block-container {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+}
+
 .base-block {
 	border-radius: 10px;
 	background-color: rgba(245, 245, 245, 0.8);
 	padding: 1%;
+}
+
+.content {
+	grid-column: 1 / span 3;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.sidebar {
+	grid-column: span 1;
+	padding: 10px;
+}
+
+.center-loader {
+	justify-content: space-around;
+	align-content: space-around;
 }

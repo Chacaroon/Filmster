@@ -2,17 +2,26 @@
 <br>
 <div *ngIf="filters && !filmsService.isLoading">
 	<span>Жанры</span>
-	<div *ngFor="let filter of filters.genres">
-		{{filter.name}}
+	<div *ngFor="let filter of filters.genres" class="form-check">
+		<label class="form-check-label">
+			<input type="checkbox" class="form-check-input">
+			{{filter.name}}
+		</label>
 	</div>
 	<br>
 	<span>Актёры</span>
-	<div *ngFor="let filter of filters.actors">
-		{{filter.name}}
+	<div *ngFor="let filter of filters.actors" class="form-check">
+		<label class="form-check-label">
+			<input type="checkbox" class="form-check-input">
+			{{filter.name}}
+		</label>
 	</div>
 	<br>
 	<span>Продюсеры</span>
-	<div *ngFor="let filter of filters.producers">
-		{{filter.name}}
+	<div *ngFor="let filter of filters.producers" class="form-check">
+		<label class="form-check-label">
+			<input type="checkbox" class="form-check-input">
+			{{filter.name}}
+		</label>
 	</div>
 </div>

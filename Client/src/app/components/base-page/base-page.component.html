@@ -1,8 +1,8 @@
 <div class="container h-100">
-	<div class="row h-100">
-		<div class="base-block w-75 position-relative d-flex flex-wrap justify-content-around">
+	<div class="row h-100 base-block-container">
+		<div class="base-block content" [class.center-loader]="filmsService.isLoading">
 			<ng-content></ng-content>
 		</div>
-		<app-sidebar class="base-block ml-2 flex-grow-1 d-none d-md-block"></app-sidebar>
+		<app-sidebar class="base-block ml-2 sidebar"></app-sidebar>
 	</div>
 </div>
