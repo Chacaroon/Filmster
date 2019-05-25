@@ -16,7 +16,7 @@ namespace DAL
 		public DbSet<Film> Films { get; set; }
 		public DbSet<Genre> Genres { get; set; }
 		public DbSet<Actor> Actors { get; set; }
-		public DbSet<Producer> Producers { get; set; }
+		public DbSet<Director> Directors { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -27,9 +27,6 @@ namespace DAL
 
 			modelBuilder.Entity<FilmActor>()
 				.HasKey(fa => new { fa.ActorId, fa.FilmId });
-
-			modelBuilder.Entity<FilmProducer>()
-				.HasKey(fp => new { fp.FilmId, fp.ProducerId });
 
 			#endregion
 
@@ -61,9 +58,9 @@ namespace DAL
 
 			modelBuilder.Entity<Film>()
 				.HasData(
-					new Film() { Id = 1, Title = "film1", UserId = 1 },
-					new Film() { Id = 2, Title = "film2", UserId = 2 },
-					new Film() { Id = 3, Title = "film3", UserId = 3 });
+					new Film() { Id = 1, Title = "film1", UserId = 1, DirectorId = 1 },
+					new Film() { Id = 2, Title = "film2", UserId = 2, DirectorId = 2 },
+					new Film() { Id = 3, Title = "film3", UserId = 3, DirectorId = 3 });
 
 			modelBuilder.Entity<Genre>()
 				.HasData(
@@ -77,11 +74,11 @@ namespace DAL
 					new Actor("actor2") { Id = 2 },
 					new Actor("actor3") { Id = 3 });
 
-			modelBuilder.Entity<Producer>()
+			modelBuilder.Entity<Director>()
 				.HasData(
-					new Producer("producer1") { Id = 1 },
-					new Producer("producer2") { Id = 2 },
-					new Producer("producer3") { Id = 3 });
+					new Director("director1") { Id = 1 },
+					new Director("director2") { Id = 2 },
+					new Director("director3") { Id = 3 });
 
 
 			modelBuilder.Entity<FilmGenre>()
@@ -104,15 +101,6 @@ namespace DAL
 					new FilmActor() { FilmId = 3, ActorId = 1 },
 					new FilmActor() { FilmId = 3, ActorId = 3 });
 
-			modelBuilder.Entity<FilmProducer>()
-				.HasData(
-					new FilmProducer() { FilmId = 1, ProducerId = 2 },
-					new FilmProducer() { FilmId = 1, ProducerId = 3 },
-
-					new FilmProducer() { FilmId = 2, ProducerId = 2 },
-
-					new FilmProducer() { FilmId = 3, ProducerId = 1 },
-					new FilmProducer() { FilmId = 3, ProducerId = 3 });
 
 			#endregion
 

@@ -13,8 +13,8 @@ namespace SharedKernel.Abstractions.BLL.DTOs.Films
 		string URI { get; set; }
 		TimeSpan Duration { get; set; }
 
+		long DirectorId { get; set; }
 		IEnumerable<long> GenreIds { get; set; }
-		IEnumerable<long> ProducerIds { get; set; }
 		IEnumerable<long> ActorIds { get; set; }
 	}
 }

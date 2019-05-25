@@ -1,6 +1,6 @@
 import { GenreFilter } from '../filters/genre-filter';
 import { ActorFilter } from '../filters/actor-filter';
-import { ProducerFilter } from '../filters/producer-filter';
+import { DirectorFilter } from '../filters/director-filter';
 
 export class Film {
 	public id: string;
@@ -13,5 +13,5 @@ export class Film {
 
 	public genres: GenreFilter[];
 	public actors: ActorFilter[];
-	public producers: ProducerFilter[];
+	public director: DirectorFilter;
 }

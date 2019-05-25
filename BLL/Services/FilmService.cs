@@ -1,25 +1,17 @@
 ﻿using AutoMapper;
+using BLL.Services.FilmFilters;
 using DAL.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SharedKernel.Abstractions.BLL.DTOs.Films;
 using SharedKernel.Abstractions.BLL.Services;
 using SharedKernel.Abstractions.DAL.Repositories;
 using SharedKernel.Abstractions.PL.ViewModels.Films;
-using SharedKernel.Extensions;
-using System;
+using SharedKernel.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BLL.DTOs.Films;
-using BLL.DTOs.Filters;
-using BLL.Services.FilmFilters;
-using Microsoft.EntityFrameworkCore;
-using SharedKernel.Abstractions.BLL.DTOs.Actors;
-using SharedKernel.Abstractions.BLL.DTOs.Filters;
-using SharedKernel.Abstractions.BLL.DTOs.Genres;
-using SharedKernel.Abstractions.BLL.DTOs.Producers;
-using SharedKernel.Exceptions;
 
 namespace BLL.Services
 {
@@ -88,10 +80,6 @@ namespace BLL.Services
 
 			if (dto.GenreIds != null)
 				newFilm.FilmGenres = dto.GenreIds.Select(id => new FilmGenre { GenreId = id, Film = newFilm }).ToList();
-
-			if (dto.ProducerIds != null)
-				newFilm.FilmProducers =
-					dto.ProducerIds.Select(id => new FilmProducer { ProducerId = id, Film = newFilm }).ToList();
 
 			_filmRepository.Update(newFilm);
 		}

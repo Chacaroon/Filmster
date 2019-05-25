@@ -14,7 +14,7 @@ namespace DAL.IoC
 		{
 			container.Register<IRepository<Film>, FilmRepository>();
 			container.Register<IRepository<Actor>, ActorRepository>();
-			container.Register<IRepository<Producer>, ProducerRepository>();
+			container.Register<IRepository<Director>, ProducerRepository>();
 			container.Register<IRepository<Genre>, GenreRepository>();
 		}
 	}
