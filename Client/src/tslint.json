@@ -17,6 +17,7 @@
 			true,
 			"tabs",
 			4
-		]
+		],
+		"curly": [true, "as-needed"]
 	}
 }

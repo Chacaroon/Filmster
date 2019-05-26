@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { NgbTimeStructAdapter } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time-adapter';
 
 @Component({
 	selector: 'app-add-film-form',
@@ -14,7 +15,7 @@ export class AddFilmFormComponent implements OnInit {
 		description: [''],
 		rating: [0],
 		uri: [''],
-		duration: ['00:00:00'],
+		duration: [{hour: 0, minute: 0, second: 0}],
 		genreIds: this.fb.array([])
 	});
 

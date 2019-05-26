@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { IndexComponent } from './pages/index/index.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
 import { FilmsComponent } from './pages/films/films.component';
@@ -24,6 +24,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { AddFilmFormComponent } from './components/add-film-form/add-film-form.component';
 import { TitleInputComponent } from './components/add-film-form/title-input/title-input.component';
 import { YearInputComponent } from './components/add-film-form/year-input/year-input.component';
+import { DurationInputComponent } from './components/add-film-form/duration-input/duration-input.component';
 
 @NgModule({
 	declarations: [
@@ -42,15 +43,17 @@ import { YearInputComponent } from './components/add-film-form/year-input/year-i
 		SpinnerComponent,
 		AddFilmFormComponent,
 		TitleInputComponent,
-		YearInputComponent
+		YearInputComponent,
+		DurationInputComponent
 	],
 	imports: [
+		NgbTimepickerModule,
 		BrowserModule,
 		AppRoutingModule,
-		NgbModule,
 		ReactiveFormsModule,
 		HttpClientModule,
-		ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
+		ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+		FormsModule
 	],
 	providers: [
 		{

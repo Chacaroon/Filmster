@@ -1,0 +1,13 @@
+<ngb-timepicker
+	[spinners]="false"
+	[seconds]="true"
+	[formControl]="control" required>
+</ngb-timepicker>
+<ng-template [ngIf]="control.touched && control.invalid">
+	<span *ngIf="control.errors.durationTooSmall" class="text-danger small">
+		Фильм не может быть таким коротким
+	</span>
+	<span *ngIf="control.errors.required" class="text-danger small">
+		Это поле обязательно для заполнения!
+	</span>
+</ng-template>
