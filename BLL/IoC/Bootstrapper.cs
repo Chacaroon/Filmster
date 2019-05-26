@@ -11,6 +11,7 @@ namespace BLL.IoC
 			container.Register<ITokenService, TokenService>();
 			container.Register<IAuthService, AuthService>();
 			container.Register<IFilmService, FilmService>();
+			container.Register<IFilterService, FilterService>();
 
 			DAL.IoC.Bootstrapper.Bootstrap(container);
 		}

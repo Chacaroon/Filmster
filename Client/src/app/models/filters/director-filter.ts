@@ -1,4 +1,4 @@
-export class DirectorFilter {
-	public id: number;
-	public name: string;
+import { BaseFilter } from './base-filter';
+
+export class DirectorFilter extends BaseFilter {
 }

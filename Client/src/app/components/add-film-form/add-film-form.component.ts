@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { NgbTimeStructAdapter } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time-adapter';
+import { AbstractControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'app-add-film-form',
@@ -32,5 +31,11 @@ export class AddFilmFormComponent implements OnInit {
 
 	getFilterControls(filter: string): AbstractControl[] {
 		return (this.filmForm.get(filter) as FormArray).controls;
+	}
+
+	addFilterInput(filter: string): void {
+		(this.filmForm.get(filter) as FormArray).controls.push(
+			this.fb.control({id: 0, name: ''})
+		);
 	}
 }

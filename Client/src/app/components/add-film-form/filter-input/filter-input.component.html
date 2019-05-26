@@ -1,0 +1,10 @@
+<label>
+	<input
+		type="text"
+		class="form-control"
+		[ngbTypeahead]="search"
+		[inputFormatter]="formatter"
+		[resultFormatter]="formatter"
+		[formControl]="control"
+		[placeholder]="placeholder">
+</label>

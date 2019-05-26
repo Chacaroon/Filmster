@@ -9,6 +9,12 @@
 			<app-year-input [control]="filmForm.get('year')"></app-year-input>
 
 			<app-duration-input [control]="filmForm.get('duration')"></app-duration-input>
+
+			<ng-template ngFor let-control [ngForOf]="getFilterControls('genreIds')">
+				<app-filter-input [control]="control" filterType="genres" placeholder="Жанр"></app-filter-input>
+			</ng-template>
+
+			<button class="btn btn-success" (click)="addFilterInput('genreIds')">Добавить жанр</button>
 		</div>
 	</div>
 	<div class="description w-100 h-100">

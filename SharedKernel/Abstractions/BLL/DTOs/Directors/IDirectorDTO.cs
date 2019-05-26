@@ -1,8 +1,8 @@
-﻿namespace SharedKernel.Abstractions.BLL.DTOs.Directors
+﻿using SharedKernel.Abstractions.BLL.DTOs.Filters;
+
+namespace SharedKernel.Abstractions.BLL.DTOs.Directors
 {
-	public interface IDirectorDTO
+	public interface IDirectorDTO : IFilterDTO
 	{
-		long Id { get; set; }
-		string Name { get; set; }
 	}
 }

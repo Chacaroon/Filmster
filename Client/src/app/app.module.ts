@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { IndexComponent } from './pages/index/index.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
@@ -25,6 +25,7 @@ import { AddFilmFormComponent } from './components/add-film-form/add-film-form.c
 import { TitleInputComponent } from './components/add-film-form/title-input/title-input.component';
 import { YearInputComponent } from './components/add-film-form/year-input/year-input.component';
 import { DurationInputComponent } from './components/add-film-form/duration-input/duration-input.component';
+import { FilterInputComponent } from './components/add-film-form/filter-input/filter-input.component';
 
 @NgModule({
 	declarations: [
@@ -44,7 +45,8 @@ import { DurationInputComponent } from './components/add-film-form/duration-inpu
 		AddFilmFormComponent,
 		TitleInputComponent,
 		YearInputComponent,
-		DurationInputComponent
+		DurationInputComponent,
+		FilterInputComponent
 	],
 	imports: [
 		NgbTimepickerModule,
@@ -53,7 +55,8 @@ import { DurationInputComponent } from './components/add-film-form/duration-inpu
 		ReactiveFormsModule,
 		HttpClientModule,
 		ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-		FormsModule
+		FormsModule,
+		NgbTypeaheadModule
 	],
 	providers: [
 		{
