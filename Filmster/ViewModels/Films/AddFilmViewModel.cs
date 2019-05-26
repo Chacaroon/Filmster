@@ -15,8 +15,8 @@ namespace Filmster.ViewModels.Films
 		public string URI { get; set; }
 		public string Duration { get; set; }
 
+		public long DirectorId { get; set; }
 		public IEnumerable<long> GenreIds { get; set; }
-		public IEnumerable<long> ProducerIds { get; set; }
 		public IEnumerable<long> ActorIds { get; set; }
 	}
 }

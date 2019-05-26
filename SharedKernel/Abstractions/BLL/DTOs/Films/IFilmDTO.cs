@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SharedKernel.Abstractions.BLL.DTOs.Actors;
+﻿using SharedKernel.Abstractions.BLL.DTOs.Actors;
+using SharedKernel.Abstractions.BLL.DTOs.Directors;
 using SharedKernel.Abstractions.BLL.DTOs.Genres;
-using SharedKernel.Abstractions.BLL.DTOs.Producers;
 using SharedKernel.Abstractions.BLL.DTOs.Users;
+using System;
+using System.Collections.Generic;
 
 namespace SharedKernel.Abstractions.BLL.DTOs.Films
 {
@@ -19,8 +18,8 @@ namespace SharedKernel.Abstractions.BLL.DTOs.Films
 		TimeSpan Duration { get; set; }
 		IUserDTO User { get; set; }
 
+		IDirectorDTO Director { get; set; }
 		IEnumerable<IGenreDTO> Genres { get; set; }
 		IEnumerable<IActorDTO> Actors { get; set; }
-		IEnumerable<IProducerDTO> Producers { get; set; }
 	}
 }

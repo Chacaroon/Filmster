@@ -18,11 +18,10 @@ namespace DAL.Repositories
 		public override IQueryable<Film> GetAll() =>
 			base.GetAll()
 				.Include(f => f.User)
-			    .Include(f => f.FilmGenres)
-			    .ThenInclude(fg => fg.Genre)
-			    .Include(f => f.FilmActors)
-			    .ThenInclude(fa => fa.Actor)
-			    .Include(f => f.FilmProducers)
-			    .ThenInclude(fp => fp.Producer);
+				.Include(f => f.FilmGenres)
+				.ThenInclude(fg => fg.Genre)
+				.Include(f => f.FilmActors)
+				.ThenInclude(fa => fa.Actor)
+				.Include(f => f.Director);
 	}
 }

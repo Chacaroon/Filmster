@@ -10,7 +10,6 @@ namespace DAL.Entities
 		{
 			FilmGenres = new List<FilmGenre>();
 			FilmActors = new List<FilmActor>();
-			FilmProducers =  new List<FilmProducer>();
 		}
 
 		public string Title { get; set; }
@@ -20,10 +19,12 @@ namespace DAL.Entities
 		public string URI { get; set; }
 		public TimeSpan Duration { get; set; }
 
-		public long UserId { get; set; }
-		public User User { get; set; }
+		public long DirectorId { get; set; }
+		public Director Director { get; set; }
 		public IEnumerable<FilmGenre> FilmGenres { get; set; }
 		public IEnumerable<FilmActor> FilmActors { get; set; }
-		public IEnumerable<FilmProducer> FilmProducers { get; set; }
+
+		public long UserId { get; set; }
+		public User User { get; set; }
 	}
 }

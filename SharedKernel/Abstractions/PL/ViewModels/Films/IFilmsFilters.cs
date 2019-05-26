@@ -10,6 +10,6 @@ namespace SharedKernel.Abstractions.PL.ViewModels.Films
 
 		IEnumerable<long> GenreIds { get; set; }
 		IEnumerable<long> ActorIds { get; set; }
-		IEnumerable<long> ProducerIds { get; set; }
+		long DirectorId { get; set; }
 	}
 }

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using SharedKernel.Abstractions.PL.ViewModels.Films;
+﻿using SharedKernel.Abstractions.PL.ViewModels.Films;
+using System.Collections.Generic;
 
 namespace Filmster.ViewModels.Films
 {
@@ -9,6 +9,6 @@ namespace Filmster.ViewModels.Films
 
 		public IEnumerable<long> GenreIds { get; set; }
 		public IEnumerable<long> ActorIds { get; set; }
-		public IEnumerable<long> ProducerIds { get; set; }
+		public long DirectorId { get; set; }
 	}
 }

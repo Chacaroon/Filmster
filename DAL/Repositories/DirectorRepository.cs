@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-	public class ProducerRepository : Repository<Producer>
+	public class ProducerRepository : Repository<Director>
 	{
 		public ProducerRepository(ApplicationContext dbContext) 
 			: base(dbContext)

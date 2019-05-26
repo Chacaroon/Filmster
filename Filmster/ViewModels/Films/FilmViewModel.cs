@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Filmster.ViewModels.Actors;
+using Filmster.ViewModels.Directors;
 using Filmster.ViewModels.Genres;
-using Filmster.ViewModels.Producers;
 using Filmster.ViewModels.User;
 
 namespace Filmster.ViewModels.Films
@@ -21,8 +21,8 @@ namespace Filmster.ViewModels.Films
 		public TimeSpan Duration { get; set; }
 		public UserViewModel User { get; set; }
 
+		public DirectorViewModel Director { get; set; }
 		public IEnumerable<GenreViewModel> Genres { get; set; }
 		public IEnumerable<ActorViewModel> Actors { get; set; }
-		public IEnumerable<ProducerViewModel> Producers { get; set; }
 	}
 }
