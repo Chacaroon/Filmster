@@ -21,6 +21,9 @@ import { FilmComponent } from './pages/film/film.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { AddFilmFormComponent } from './components/add-film-form/add-film-form.component';
+import { TitleInputComponent } from './components/add-film-form/title-input/title-input.component';
+import { YearInputComponent } from './components/add-film-form/year-input/year-input.component';
 
 @NgModule({
 	declarations: [
@@ -36,7 +39,10 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 		FilmComponent,
 		SidebarComponent,
 		SearchBoxComponent,
-		SpinnerComponent
+		SpinnerComponent,
+		AddFilmFormComponent,
+		TitleInputComponent,
+		YearInputComponent
 	],
 	imports: [
 		BrowserModule,

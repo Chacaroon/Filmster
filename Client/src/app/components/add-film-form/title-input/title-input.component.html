@@ -1,0 +1,9 @@
+<label class="w-100">
+	<input type="text" [formControl]="control" placeholder="Название фильма" class="form-control"
+		   [class.is-invalid]="control.touched && control.invalid">
+	<span
+		*ngIf="control.touched && control.invalid"
+		class="invalid-feedback">
+		Это поле обязательно для заполнения
+	</span>
+</label>

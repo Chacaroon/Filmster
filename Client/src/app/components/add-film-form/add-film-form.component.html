@@ -1,0 +1,22 @@
+<form [formGroup]="filmForm" (ngSubmit)="onSubmitForm()" class="form">
+	<div class="image">
+		<img src="assets/img/default.jpg" alt="image">
+	</div>
+	<div class="main-info">
+		<div class="form-group">
+			<app-title-input [control]="filmForm.get('title')"
+								 [placeholder]="'Название фильма'"></app-title-input>
+
+			<app-year-input [control]="filmForm.get('year')"></app-year-input>
+
+		</div>
+	</div>
+	<div class="description w-100 h-100">
+		<label class="w-100 h-100">
+			<textarea class="h-100 form-control" placeholder="Краткое описание" formControlName="description"></textarea>
+		</label>
+	</div>
+	<div class="buttons">
+
+	</div>
+</form>
