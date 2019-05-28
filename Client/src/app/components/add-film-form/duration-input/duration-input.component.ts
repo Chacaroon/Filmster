@@ -15,17 +15,7 @@ export class DurationInputComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.control.setValidators(control1 => {
-			const val: NgbTimeStruct = control1.value;
 
-			if (val == null)
-				return null;
-
-			if ([+val.hour, +val.minute, +val.second].every(e => e === 0))
-				return {durationTooSmall: true};
-
-			return null;
-		});
 	}
 
 }

@@ -6,6 +6,8 @@ import { Film } from '../../models/films/film';
 import { FilmsResponse } from '../../models/films/films-response';
 import { Filters } from '../../models/filters/filters';
 import { debounceTime, filter, map, switchAll, tap } from 'rxjs/operators';
+import { BaseFilter } from '../../models/filters/base-filter';
+import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
 	providedIn: 'root'
@@ -68,6 +70,22 @@ export class FilmsService {
 				this.filmsSubject.next(value.films);
 				this.filtersSubject.next(value.filters);
 			});
+	}
+
+	public addFilm(film: any): void {
+		film.actorIds = film.actorIds.map((e: BaseFilter) => e.id);
+		film.genreIds = film.genreIds.map((e: BaseFilter) => e.id);
+		film.directorId = film.directorId.id;
+
+		const {hour, minute, second} = film.duration as NgbTimeStruct;
+
+		film.duration = `${hour}:${minute}:${second}`;
+
+		this.http.post(`${environment.apiUrl}/Films/`, film)
+			.subscribe(res => {
+					console.log(res);
+				},
+				err => console.error(err));
 	}
 
 	private getFilms(): Observable<FilmsResponse> {

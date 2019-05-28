@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { filterValidator } from '../../validators/filterValidator';
+import { timeValidator } from '../../validators/timeValidator';
+import { FilmsService } from '../../services/films/films.service';
 
 @Component({
 	selector: 'app-add-film-form',
@@ -10,21 +12,24 @@ import { filterValidator } from '../../validators/filterValidator';
 export class AddFilmFormComponent implements OnInit {
 
 	filmForm: FormGroup;
+	currentRate = 0;
 
-	constructor(private fb: FormBuilder) {
+	constructor(
+		private fb: FormBuilder,
+		private filmService: FilmsService) {
 	}
 
 	ngOnInit() {
 		this.filmForm = this.fb.group({
 			title: ['', Validators.required],
-			year: ['', [Validators.min(1895), Validators.max(new Date().getUTCFullYear())]],
+			year: ['', [Validators.min(1895), Validators.required]],
 			description: [''],
 			rating: [0],
 			uri: [''],
-			duration: [{hour: 0, minute: 0, second: 0}],
+			duration: [{hour: 0, minute: 0, second: 0}, timeValidator()],
 			genreIds: this.fb.array([]),
 			actorIds: this.fb.array([]),
-			directorId: ['']
+			directorId: ['', filterValidator()]
 		});
 
 		this.addFilterInput('genreIds');
@@ -36,8 +41,8 @@ export class AddFilmFormComponent implements OnInit {
 	}
 
 	addFilterInput(filter: string): void {
-		this.getFilterControls(filter).push(
-			this.fb.control({id: 0, name: ''}, [Validators.required, filterValidator()])
+		(this.filmForm.get(filter) as FormArray).push(
+			this.fb.control({id: 0, name: ''}, [filterValidator()])
 		);
 	}
 
@@ -49,8 +54,22 @@ export class AddFilmFormComponent implements OnInit {
 
 	submitForm(): void {
 
-		this.filmForm.markAsTouched();
+		if (this.filmForm.invalid) {
+			this.markFormGroupTouched(this.filmForm);
+			return;
+		}
 
-		console.log(this.filmForm.valid);
+		this.filmForm.get('rating').patchValue(this.currentRate);
+
+		this.filmService.addFilm(this.filmForm.value);
 	}
+
+	markFormGroupTouched = (formGroup) => {
+		(<any>Object).values(formGroup.controls).forEach(control => {
+			control.markAsTouched();
+
+			if (control.controls)
+				this.markFormGroupTouched(control);
+		});
+	};
 }

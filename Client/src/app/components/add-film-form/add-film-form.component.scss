@@ -40,6 +40,13 @@
 }
 
 .buttons {
-	background-color: darkred;
 	grid-column: -2 / -1;
+}
+
+.star {
+	font-size: 1.5rem;
+	color: #de000a;
+}
+.filled {
+	color: #1e90ff;
 }

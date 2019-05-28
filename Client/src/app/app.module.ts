@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbRatingModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { IndexComponent } from './pages/index/index.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
@@ -56,7 +56,8 @@ import { FilterInputComponent } from './components/add-film-form/filter-input/fi
 		HttpClientModule,
 		ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
 		FormsModule,
-		NgbTypeaheadModule
+		NgbTypeaheadModule,
+		NgbRatingModule
 	],
 	providers: [
 		{
