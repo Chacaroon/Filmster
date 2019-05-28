@@ -1,4 +1,4 @@
-<label>
+<div class="input-group mb-2">
 	<input
 		type="text"
 		class="form-control"
@@ -6,5 +6,19 @@
 		[inputFormatter]="formatter"
 		[resultFormatter]="formatter"
 		[formControl]="control"
-		[placeholder]="placeholder">
-</label>
+		[placeholder]="placeholder"
+		[class.is-invalid]="control.touched && control.invalid">
+
+	<div *ngIf="isRemovable"
+		class="input-group-append">
+		<button type="button" class="btn btn-danger" (click)="remove.emit()">X</button>
+	</div>
+
+	<span
+		*ngIf="control.touched && control.invalid"
+		class="invalid-feedback">
+		<ng-template [ngIf]="control.errors.filterRequired">
+			Нужно выбрать из списка!
+		</ng-template>
+	</span>
+</div>

@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormControl } from '@angular/forms';
 import { FiltersService } from '../../../services/filters/filters.service';
 import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
@@ -12,9 +12,11 @@ import { BaseFilter } from '../../../models/filters/base-filter';
 })
 export class FilterInputComponent implements OnInit {
 
-	@Input('control') control: FormControl;
-	@Input('filterType') filter: string;
-	@Input('placeholder') placeholder: string;
+	@Input() isRemovable: boolean;
+	@Input() control: AbstractControl;
+	@Input() filter: string;
+	@Input() placeholder: string;
+	@Output() remove = new EventEmitter();
 
 	constructor(private filtersService: FiltersService) {
 	}

@@ -2,12 +2,12 @@
 	height: 100%;
 	display: grid;
 	grid-gap: 10px;
-	grid-template-columns: repeat(10, 1fr);
-	grid-template-rows: repeat(5, 1fr) repeat(2, .5fr);
+	grid-template-columns: 1fr 2fr;
+	grid-auto-rows: min-content;
 }
 
 .image {
-	grid-area: 1 / 1 / 5 span / 4 span;
+	grid-area: 1 / 1 / 5 span / 1 span;
 }
 
 .image > img {
@@ -17,16 +17,29 @@
 }
 
 .main-info {
-	grid-area: 1 / 5 / 4 / -1;
 	padding: 10px;
 }
 
 .description {
 	padding: 10px;
-	grid-area: 4 / 5 / -3 / -1;
+}
+
+.filters-container {
+	display: grid;
+	grid-gap: 10px;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-areas: 'genres actors';
+}
+
+.genres-filters-container {
+	grid-area: genres;
+}
+
+.actors-filters-container {
+	grid-area: actors;
 }
 
 .buttons {
 	background-color: darkred;
-	grid-area: -3 / -4 / -2 / -1;
+	grid-column: -2 / -1;
 }

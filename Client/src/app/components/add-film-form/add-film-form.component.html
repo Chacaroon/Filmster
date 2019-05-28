@@ -1,28 +1,83 @@
-<form [formGroup]="filmForm" (ngSubmit)="onSubmitForm()" class="form">
+<form [formGroup]="filmForm" (ngSubmit)="submitForm()" class="form">
 	<div class="image">
 		<img src="assets/img/default.jpg" alt="image">
 	</div>
-	<div class="main-info">
-		<div class="form-group">
-			<app-title-input [control]="filmForm.get('title')"></app-title-input>
 
-			<app-year-input [control]="filmForm.get('year')"></app-year-input>
+	<div class="form-group mb-0">
+		<app-title-input [control]="filmForm.get('title')"></app-title-input>
+	</div>
 
-			<app-duration-input [control]="filmForm.get('duration')"></app-duration-input>
+	<div class="form-group">
+		<app-year-input
+			[control]="filmForm.get('year')"
+			class="d-inline-block"></app-year-input>
+		<span class="mx-1"></span>
 
-			<ng-template ngFor let-control [ngForOf]="getFilterControls('genreIds')">
-				<app-filter-input [control]="control" filterType="genres" placeholder="Жанр"></app-filter-input>
-			</ng-template>
+		<app-duration-input
+			[control]="filmForm.get('duration')"
+			class="d-inline-block"></app-duration-input>
+	</div>
 
-			<button class="btn btn-success" (click)="addFilterInput('genreIds')">Добавить жанр</button>
+	<div class="filters-container form-group">
+
+		<div class="genres-filters-container">
+			<ng-container [ngTemplateOutlet]="filters"
+						  [ngTemplateOutletContext]="{
+							  	filter:'genreIds',
+							  	placeholder: 'Жанр',
+							  	buttonText: 'Добавить жанр'
+							  }"></ng-container>
+		</div>
+
+		<div class="actors-filters-container">
+			<ng-container [ngTemplateOutlet]="filters"
+						  [ngTemplateOutletContext]="{
+							  	filter:'actorIds',
+							  	placeholder: 'Актёр',
+							  	buttonText: 'Добавить актёра'
+							  }"></ng-container>
 		</div>
 	</div>
+
+	<div class="form-group">
+		<app-filter-input
+			[isRemovable]="false"
+			placeholder="Режиссёр"
+			filter="directorId"
+			[control]="filmForm.get('directorId')">
+		</app-filter-input>
+	</div>
+
 	<div class="description w-100 h-100">
 		<label class="w-100 h-100">
-			<textarea class="h-100 form-control" placeholder="Краткое описание" formControlName="description"></textarea>
+			<textarea class="h-100 form-control" placeholder="Краткое описание"
+					  formControlName="description"></textarea>
 		</label>
 	</div>
-	<div class="buttons">
 
+	<div class="buttons">
+		<button class="btn btn-success" type="submit">Добавить</button>
 	</div>
 </form>
+
+<ng-template #filters
+			 let-filter="filter"
+			 let-placeholder="placeholder"
+			 let-buttonText="buttonText">
+	<ng-template ngFor let-control let-i="index" [ngForOf]="getFilterControls(filter)">
+		<app-filter-input
+			[isRemovable]="i != 0"
+			[control]="control"
+			[filter]="filter"
+			[placeholder]="placeholder"
+			(remove)="removeInput(filter, i)">
+		</app-filter-input>
+	</ng-template>
+
+	<button
+		*ngIf="getFilterControls(filter).length < 5"
+		class="btn btn-success"
+		(click)="addFilterInput(filter)">
+		{{buttonText}}
+	</button>
+</ng-template>

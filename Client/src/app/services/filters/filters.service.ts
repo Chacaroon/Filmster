@@ -5,7 +5,6 @@ import { Filters } from '../../models/filters/filters';
 import { BaseFilter } from '../../models/filters/base-filter';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { filter, switchAll } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
@@ -25,8 +24,21 @@ export class FiltersService {
 		return this._filtersSubject.asObservable();
 	}
 
-	public searchFilters(filterType: string, value: string): Observable<BaseFilter[]>
-	{
+	public searchFilters(filterType: string, value: string): Observable<BaseFilter[]> {
+		switch (filterType) {
+			case 'genreIds':
+				filterType = 'genres';
+				break;
+			case 'actorIds':
+				filterType = 'actors';
+				break;
+			case 'directorId':
+				filterType = 'directors';
+				break;
+			default:
+				return;
+		}
+
 		return this.http
 			.get<BaseFilter[]>(`${environment.apiUrl}/Filters/Search/${filterType}/Like/${value}`);
 	}

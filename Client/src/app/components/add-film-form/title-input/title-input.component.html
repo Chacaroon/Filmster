@@ -4,8 +4,8 @@
 	<span
 		*ngIf="control.touched && control.invalid"
 		class="invalid-feedback">
-		<span *ngIf="control.errors.required">
+		<ng-template [ngIf]="control.errors.required">
 			Это поле обязательно для ввода!
-		</span>
+		</ng-template>
 	</span>
 </label>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { filterValidator } from '../../validators/filterValidator';
 
 @Component({
 	selector: 'app-add-film-form',
@@ -8,34 +9,48 @@ import { AbstractControl, FormArray, FormBuilder, Validators } from '@angular/fo
 })
 export class AddFilmFormComponent implements OnInit {
 
-	filmForm = this.fb.group({
-		title: ['', Validators.required],
-		year: ['', [Validators.min(1895), Validators.max(new Date().getUTCFullYear())]],
-		description: [''],
-		rating: [0],
-		uri: [''],
-		duration: [{hour: 0, minute: 0, second: 0}],
-		genreIds: this.fb.array([])
-	});
+	filmForm: FormGroup;
 
 	constructor(private fb: FormBuilder) {
 	}
 
 	ngOnInit() {
-		console.log(this.filmForm);
+		this.filmForm = this.fb.group({
+			title: ['', Validators.required],
+			year: ['', [Validators.min(1895), Validators.max(new Date().getUTCFullYear())]],
+			description: [''],
+			rating: [0],
+			uri: [''],
+			duration: [{hour: 0, minute: 0, second: 0}],
+			genreIds: this.fb.array([]),
+			actorIds: this.fb.array([]),
+			directorId: ['']
+		});
+
+		this.addFilterInput('genreIds');
+		this.addFilterInput('actorIds');
 	}
 
-	onSubmitForm() {
-		console.log(this.filmForm.controls);
-	}
-
-	getFilterControls(filter: string): AbstractControl[] {
-		return (this.filmForm.get(filter) as FormArray).controls;
+	getFilterControls(filter: string): FormControl[] {
+		return (this.filmForm.get(filter) as FormArray).controls as FormControl[];
 	}
 
 	addFilterInput(filter: string): void {
-		(this.filmForm.get(filter) as FormArray).controls.push(
-			this.fb.control({id: 0, name: ''})
+		this.getFilterControls(filter).push(
+			this.fb.control({id: 0, name: ''}, [Validators.required, filterValidator()])
 		);
+	}
+
+	removeInput(filter: string, index: number): void {
+		const filters = this.filmForm.get(filter) as FormArray;
+
+		filters.removeAt(index);
+	}
+
+	submitForm(): void {
+
+		this.filmForm.markAsTouched();
+
+		console.log(this.filmForm.valid);
 	}
 }
