@@ -26,6 +26,7 @@ import { TitleInputComponent } from './components/add-film-form/title-input/titl
 import { YearInputComponent } from './components/add-film-form/year-input/year-input.component';
 import { DurationInputComponent } from './components/add-film-form/duration-input/duration-input.component';
 import { FilterInputComponent } from './components/add-film-form/filter-input/filter-input.component';
+import { ImageInputComponent } from './components/add-film-form/image-input/image-input.component';
 
 @NgModule({
 	declarations: [
@@ -46,7 +47,8 @@ import { FilterInputComponent } from './components/add-film-form/filter-input/fi
 		TitleInputComponent,
 		YearInputComponent,
 		DurationInputComponent,
-		FilterInputComponent
+		FilterInputComponent,
+		ImageInputComponent
 	],
 	imports: [
 		NgbTimepickerModule,

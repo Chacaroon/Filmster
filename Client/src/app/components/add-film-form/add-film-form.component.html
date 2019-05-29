@@ -1,6 +1,6 @@
 <form [formGroup]="filmForm" (ngSubmit)="submitForm()" class="form">
-	<div class="image">
-		<img src="assets/img/default.jpg" alt="image">
+	<div class="image" style="max-width: 100%">
+		<app-image-input [control]="filmForm.get('uri')" style="max-width: 100%"></app-image-input>
 	</div>
 
 	<div class="form-group mb-0">

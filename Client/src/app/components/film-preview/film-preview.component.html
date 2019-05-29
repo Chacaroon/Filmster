@@ -1,5 +1,5 @@
 <div class="card" routerLink="/films/{{film.id}}">
-	<img class="card-img-top" src="assets/img/default.jpg">
+	<img class="card-img-top" [src]="film.uri || 'assets/img/default.jpg'">
 	<div class="card-body">
 		<h5 class="card-title">{{film.title}}</h5>
 		<p class="card-text">{{film.description?.substr(0, 50) + '...'}}</p>

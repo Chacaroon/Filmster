@@ -1,0 +1,11 @@
+<img
+	style="max-width: 100%"
+	[src]="control.value || 'assets/img/default.jpg'"
+	class="image"
+	alt="image"
+	(click)="$event.srcElement.nextSibling.click()">
+<input
+	type="file"
+	accept="image/jpeg,image/png"
+	class="d-none"
+	(input)="readImage($event)">
