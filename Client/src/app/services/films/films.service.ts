@@ -8,6 +8,7 @@ import { Filters } from '../../models/filters/filters';
 import { debounceTime, filter, map, switchAll, tap } from 'rxjs/operators';
 import { BaseFilter } from '../../models/filters/base-filter';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Injectable({
 	providedIn: 'root'
@@ -20,7 +21,8 @@ export class FilmsService {
 	private filmsSubject: Subject<Film[]>;
 
 	constructor(
-		private http: HttpClient) {
+		private http: HttpClient,
+		private router: Router) {
 
 		this.filtersSubject = new Subject<Filters>();
 		this.filmsSubject = new Subject<Film[]>();
@@ -82,8 +84,8 @@ export class FilmsService {
 		film.duration = `${hour}:${minute}:${second}`;
 
 		this.http.post(`${environment.apiUrl}/Films/`, film)
-			.subscribe(res => {
-					console.log(res);
+			.subscribe((res: {id: number}) => {
+					this.router.navigate([`films/${res.id}`]);
 				},
 				err => console.error(err));
 	}

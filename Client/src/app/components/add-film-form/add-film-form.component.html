@@ -57,14 +57,19 @@
 
 
 	<div>
-		<ngb-rating [(rate)]="currentRate" [max]="5" class="d-inline-block">
+		<ngb-rating [(rate)]="currentRate" [max]="5" class="d-inline-block" [readonly]="filmForm.disabled">
 			<ng-template let-fill="fill" let-index="index">
-				<span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+				<span class="star"
+					  [class.filled]="fill === 100"
+					  [class.bad]="index < 3">&#9733;</span>
 			</ng-template>
 		</ngb-rating>
 
 		<div class="buttons float-right">
-			<button class="btn btn-success" type="submit">Добавить</button>
+			<button
+				class="btn btn-success"
+				type="submit"
+				[class.disabled]="filmForm.disabled">Добавить</button>
 		</div>
 	</div>
 </form>
@@ -86,6 +91,7 @@
 	<button
 		*ngIf="getFilterControls(filter).length < 5"
 		class="btn btn-success"
+		[class.disabled]="filmForm.disabled"
 		(click)="addFilterInput(filter)">
 		{{buttonText}}
 	</button>

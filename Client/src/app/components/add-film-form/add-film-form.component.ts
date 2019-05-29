@@ -61,6 +61,7 @@ export class AddFilmFormComponent implements OnInit {
 
 		this.filmForm.get('rating').patchValue(this.currentRate);
 
+		this.filmForm.disable();
 		this.filmService.addFilm(this.filmForm.value);
 	}
 

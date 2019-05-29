@@ -63,7 +63,7 @@ namespace Filmster.Controllers
 				return BadRequest();
 			}
 
-			return CreatedAtAction(nameof(Get), new { Id = filmId }, null);
+			return CreatedAtAction(nameof(Get), new { Id = filmId }, new { Id = filmId });
 		}
 
 		// PUT: api/Films/5
