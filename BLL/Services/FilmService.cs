@@ -28,14 +28,15 @@ namespace BLL.Services
 			_httpContext = httpContextAccessor.HttpContext;
 		}
 
-		public IFilmsResponseDTO GetAll(IFilmsFilters filters, string orderBy)
+		public IFilmsResponseDTO GetAll(IFilmsFilters filters, string orderBy, string searchString = "", int page = 1)
 		{
 			var filmsQuery = _filmRepository.GetAll()
+											.Where(e => EF.Functions.Like(e.Title, $"%{searchString}%"))
 											.AsNoTracking();
 
 			FilmFiltersProvider.FilterFilms(ref filmsQuery, filters);
 
-			var response = Mapper.Map<IFilmsResponseDTO>(filmsQuery);
+			var response = Mapper.Map<IFilmsResponseDTO>(filmsQuery.Take(page * 10));
 
 			return response;
 		}

@@ -1,10 +1,13 @@
 <app-search-box></app-search-box>
 <br>
-<div *ngIf="filters && !filmsService.isLoading">
+<div *ngIf="filters">
 	<span>Жанры</span>
 	<div *ngFor="let filter of filters.genres" class="form-check">
 		<label class="form-check-label">
-			<input type="checkbox" class="form-check-input">
+			<input type="checkbox" class="form-check-input"
+				   (change)="$event.target.checked
+								? selectFilter('genreIds', filter.id)
+								: removeFilter('genreIds', filter.id)">
 			{{filter.name}}
 		</label>
 	</div>
@@ -12,7 +15,10 @@
 	<span>Актёры</span>
 	<div *ngFor="let filter of filters.actors" class="form-check">
 		<label class="form-check-label">
-			<input type="checkbox" class="form-check-input">
+			<input type="checkbox" class="form-check-input"
+				   (change)="$event.target.checked
+								? selectFilter('actorIds', filter.id)
+								: removeFilter('actorIds', filter.id)">
 			{{filter.name}}
 		</label>
 	</div>
@@ -20,7 +26,10 @@
 	<span>Режиссёры</span>
 	<div *ngFor="let filter of filters.directors" class="form-check">
 		<label class="form-check-label">
-			<input type="checkbox" class="form-check-input">
+			<input type="checkbox" class="form-check-input"
+				   (change)="$event.target.checked
+								? selectFilter('directorIds', filter.id)
+								: removeFilter('directorIds', filter.id)">
 			{{filter.name}}
 		</label>
 	</div>

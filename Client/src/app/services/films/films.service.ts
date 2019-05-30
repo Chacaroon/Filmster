@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable, Subject, } from 'rxjs';
 import { Film } from '../../models/films/film';
@@ -19,6 +19,13 @@ export class FilmsService {
 
 	private filtersSubject: Subject<Filters>;
 	private filmsSubject: Subject<Film[]>;
+	private filters = {
+		genreIds: [],
+		actorIds: [],
+		directorId: 0,
+		searchString: '',
+		page: 1
+	};
 
 	constructor(
 		private http: HttpClient,
@@ -36,6 +43,27 @@ export class FilmsService {
 
 	public get filtersObservable() {
 		return this.filtersSubject.asObservable();
+	}
+
+	public addFilter(filterType: string, value: string) {
+		if (typeof this.filters[filterType] === typeof []) {
+			(this.filters[filterType] as Array<any>).push(value);
+		} else
+			this.filters[filterType] = value;
+
+		this.updateFilmsList();
+	}
+
+	public removeFilter(filterType: string, value: string) {
+		if (typeof this.filters[filterType] === typeof []) {
+			const arr = (this.filters[filterType] as Array<any>);
+			const index = arr.indexOf(value);
+
+			if (index > -1)
+				arr.splice(index, 1);
+		}
+
+		this.updateFilmsList();
 	}
 
 	public updateFilmsList(): void {
@@ -57,12 +85,10 @@ export class FilmsService {
 			.pipe(
 				debounceTime(1000),
 				filter((value: string) => value.length > 3 || value.length === 0),
-				map(query => {
+				map((value: string) => {
 					this.isLoading = true;
-
-					return query.length > 0
-						? this.http.get<FilmsResponse>(`${environment.apiUrl}/Films/Search/${query}`)
-						: this.getFilms();
+					this.filters.searchString = value;
+					return this.getFilms();
 				}),
 				switchAll()
 			)
@@ -84,13 +110,15 @@ export class FilmsService {
 		film.duration = `${hour}:${minute}:${second}`;
 
 		this.http.post(`${environment.apiUrl}/Films/`, film)
-			.subscribe((res: {id: number}) => {
+			.subscribe((res: { id: number }) => {
 					this.router.navigate([`films/${res.id}`]);
 				},
 				err => console.error(err));
 	}
 
 	private getFilms(): Observable<FilmsResponse> {
-		return this.http.get<FilmsResponse>(`${environment.apiUrl}/Films`);
+		// @ts-ignore
+		const params = new HttpParams({fromObject: this.filters});
+		return this.http.get<FilmsResponse>(`${environment.apiUrl}/Films`, {params});
 	}
 }

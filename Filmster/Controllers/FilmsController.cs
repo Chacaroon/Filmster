@@ -28,9 +28,13 @@ namespace Filmster.Controllers
 
 		// GET: api/Films
 		[HttpGet]
-		public ActionResult<FilmsResponseViewModel> Get([FromQuery] FilmsFiltersQuery filters, [FromQuery] string orderBy)
+		public ActionResult<FilmsResponseViewModel> Get(
+			[FromQuery] FilmsFiltersQuery filters, 
+			[FromQuery] string orderBy, 
+			[FromQuery] string searchString, 
+			[FromQuery] int page)
 		{
-			var response = Mapper.Map<FilmsResponseViewModel>(_filmService.GetAll(filters, orderBy));
+			var response = Mapper.Map<FilmsResponseViewModel>(_filmService.GetAll(filters, orderBy, searchString, page));
 
 			return Ok(response);
 		}

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { FiltersService } from '../../../services/filters/filters.service';
 import { Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
+import { debounceTime, distinct, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { BaseFilter } from '../../../models/filters/base-filter';
 
 @Component({
@@ -32,7 +32,6 @@ export class FilterInputComponent implements OnInit {
 			query.length === 0
 				? of([])
 				: this.filtersService.searchFilters(this.filter, query))
-
 	);
 
 	formatter = (e: BaseFilter) => e.name;
