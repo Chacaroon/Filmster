@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FilmsService } from '../../services/films/films.service';
 import { Film } from '../../models/films/film';
+import { BaseFilter } from '../../models/filters/base-filter';
 
 @Component({
 	selector: 'app-film',
@@ -18,6 +19,7 @@ export class FilmComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.getFilm();
 	}
 
 	getFilm(): void {
@@ -26,4 +28,7 @@ export class FilmComponent implements OnInit {
 			.subscribe(f => this.film = f);
 	}
 
+	mapFiltersToStrings(filters: BaseFilter[]): string[] {
+		return filters.map(f => f.name);
+	}
 }
