@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FilmsService } from '../../services/films/films.service';
 import { Film } from '../../models/films/film';
@@ -11,7 +11,7 @@ import { BaseFilter } from '../../models/filters/base-filter';
 })
 export class FilmComponent implements OnInit {
 
-	private film: Film;
+	@Input() film: Film;
 
 	constructor(
 		private route: ActivatedRoute,

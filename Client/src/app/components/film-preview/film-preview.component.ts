@@ -10,6 +10,8 @@ export class FilmPreviewComponent implements OnInit {
 
 	@Input() film: Film;
 
+	hover: boolean;
+
 	constructor() {
 	}
 

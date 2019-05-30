@@ -1,8 +1,12 @@
-<div class="card" routerLink="/films/{{film.id}}">
+<div class="card" (mouseover)="hover = true" (mouseout)="hover = false">
 	<img class="card-img-top" [src]="film.uri || 'assets/img/default.jpg'">
 	<div class="card-body">
 		<h5 class="card-title">{{film.title}}</h5>
 		<p class="card-text">{{film.description?.substr(0, 50) + '...'}}</p>
+		<ng-template [ngIf]="hover">
+			<p>Год: {{film.year}}</p>
+			<p>Режиссёр: {{film.director.name}}</p>
+		</ng-template>
 	</div>
 </div>
 

@@ -1,7 +1,22 @@
 <app-base-page>
-		<app-spinner *ngIf="filmsService.isLoading" class="align-self-center"></app-spinner>
-		<ng-template [ngIf]="!filmsService.isLoading">
-			<app-film-preview *ngFor="let film of films" [film]="film" class="film-preview"></app-film-preview>
+		<app-spinner *ngIf="filmService.isLoading" class="align-self-center"></app-spinner>
+		<ng-template [ngIf]="!filmService.isLoading">
+			<app-film-preview
+				*ngFor="let film of films"
+				[film]="film"
+				class="film-preview"
+				(click)="open(content, film)"></app-film-preview>
 		</ng-template>
 </app-base-page>
 
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">{{openedFilm.title}}</h4>
+		<button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<app-film [film]="openedFilm"></app-film>
+	</div>
+</ng-template>

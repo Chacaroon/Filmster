@@ -1,28 +1,29 @@
-<div class="base-block h-100">
-	<div class="container" *ngIf="film">
-		<div id="poster">
-			<img class="w-100" [src]="film.uri || 'assets/img/default.jpg'" alt="image">
-		</div>
+<div class="container" *ngIf="film">
+	<div id="poster">
+		<img class="w-100" [src]="film.uri || 'assets/img/default.jpg'" alt="image">
+	</div>
 
-		<div id="info">
-			<p>
-				Название: {{film.title}}
-			</p>
-			<p>
-				Жанры: {{mapFiltersToStrings(film.genres)}}
-			</p>
-			<p>
-				Режиссёр {{film.director.name}}
-			</p>
-			<p>
-				Актёры: {{mapFiltersToStrings(film.actors)}}
-			</p>
-			<p>
-				Длительность: {{film.duration}}
-			</p>
-		</div>
-		<div id="description">
-			{{film.description}}
-		</div>
+	<div id="info">
+		<p>
+			Название: {{film.title}}
+		</p>
+		<p>
+			Жанры: {{mapFiltersToStrings(film.genres)}}
+		</p>
+		<p>
+			Режиссёр: {{film.director.name}}
+		</p>
+		<p>
+			Актёры: {{mapFiltersToStrings(film.actors)}}
+		</p>
+		<p>
+			Длительность: {{film.duration}}
+		</p>
+		<p>
+			Год: {{film.year}}
+		</p>
+	</div>
+	<div id="description">
+		{{film.description}}
 	</div>
 </div>
