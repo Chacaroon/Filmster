@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { filterValidator } from '../../validators/filterValidator';
 import { timeValidator } from '../../validators/timeValidator';
 import { FilmsService } from '../../services/films/films.service';
+import { uniqueValidator } from '../../validators/uniqeValuesInArrayFilter';
 
 @Component({
 	selector: 'app-add-film-form',
@@ -27,8 +28,8 @@ export class AddFilmFormComponent implements OnInit {
 			rating: [0],
 			uri: [''],
 			duration: [{hour: 0, minute: 0, second: 0}, timeValidator()],
-			genreIds: this.fb.array([]),
-			actorIds: this.fb.array([]),
+			genreIds: this.fb.array([], uniqueValidator()),
+			actorIds: this.fb.array([], uniqueValidator()),
 			directorId: ['', filterValidator()]
 		});
 

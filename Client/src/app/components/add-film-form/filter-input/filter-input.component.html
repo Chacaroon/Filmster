@@ -7,14 +7,15 @@
 		[resultFormatter]="formatter"
 		[formControl]="control"
 		[placeholder]="placeholder"
-		[class.is-invalid]="control.touched && control.invalid">
+		[class.is-invalid]="control.touched && (control.invalid || control.parent.errors)">
 
 	<div *ngIf="isRemovable"
-		class="input-group-append">
+		 class="input-group-append">
 		<button
 			type="button"
 			class="btn btn-danger"
-			(click)="remove.emit()">X</button>
+			(click)="remove.emit()">X
+		</button>
 	</div>
 
 	<span
@@ -24,4 +25,12 @@
 			Нужно выбрать из списка!
 		</ng-template>
 	</span>
+	<span
+		*ngIf="control.touched && control.parent.errors"
+		class="invalid-feedback">
+		<ng-template [ngIf]="control.parent.errors.duplicate.ids.includes(control.value.id)">
+			Не повторяйся
+		</ng-template>
+	</span>
+
 </div>

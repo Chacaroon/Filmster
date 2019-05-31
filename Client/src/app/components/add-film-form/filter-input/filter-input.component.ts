@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { FiltersService } from '../../../services/filters/filters.service';
 import { Observable, of } from 'rxjs';
-import { debounceTime, distinct, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { debounceTime, distinct, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 import { BaseFilter } from '../../../models/filters/base-filter';
 
 @Component({

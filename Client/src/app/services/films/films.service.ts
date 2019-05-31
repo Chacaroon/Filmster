@@ -111,7 +111,7 @@ export class FilmsService {
 
 		this.http.post(`${environment.apiUrl}/Films/`, film)
 			.subscribe((res: { id: number }) => {
-					this.router.navigate([`films/${res.id}`]);
+					this.router.navigate([`films`]);
 				},
 				err => console.error(err));
 	}

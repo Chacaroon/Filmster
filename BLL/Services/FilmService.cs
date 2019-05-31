@@ -36,7 +36,7 @@ namespace BLL.Services
 
 			FilmFiltersProvider.FilterFilms(ref filmsQuery, filters);
 
-			var response = Mapper.Map<IFilmsResponseDTO>(filmsQuery.Take(page * 10));
+			var response = Mapper.Map<IFilmsResponseDTO>(filmsQuery);
 
 			return response;
 		}
