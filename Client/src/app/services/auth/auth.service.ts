@@ -7,6 +7,7 @@ import { TokenService } from '../token/token.service';
 import { AuthorizationSuccess } from '../../models/auth/authorization-success';
 import { UserService } from '../user/user.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -39,7 +40,7 @@ export class AuthService {
 			});
 	}
 
-	public logout() {
+	public logout(): void {
 		this.tokenService.Token = null;
 		this.userService.User = null;
 		this.router.navigate(['']);

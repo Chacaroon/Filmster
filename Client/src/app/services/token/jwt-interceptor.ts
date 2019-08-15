@@ -1,9 +1,9 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
-import { Observable, throwError } from 'rxjs';
+import { iif, Observable, throwError } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { catchError, mergeMap, retryWhen, scan, takeWhile } from 'rxjs/operators';
+import { catchError, mergeMap } from 'rxjs/operators';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -13,49 +13,30 @@ export class JwtInterceptor implements HttpInterceptor {
 	}
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		console.dir('intercept');
-
-		if (this.tokenService.Token) {
-			request = request.clone({
-				setHeaders: {
-					Authorization: `Bearer ${this.tokenService.Token}`
-				}
-			});
-		}
-
-		return next.handle(request)
-			.pipe(catchError((err) => {
-					if (err.status === 401 && this.tokenService.Token) {
-						return this.handle401error(next, request);
-					}
-
-					return throwError(err);
-				}),
-				retryWhen((errors) => errors.pipe(
-					scan((errorCount) => {
-						return errorCount + 1;
-					}, 0)
-					, takeWhile((errorCount) => {
-						return errorCount < 2;
-					})
-					)
-				)
-			);
-	}
-
-	private handle401error(next, request): Observable<any> {
-		return this.tokenService.refreshToken()
-			.pipe(mergeMap(() => {
-					request = request.clone({
-						setHeaders: {
-							Authorization: `Bearer ${this.tokenService.Token}`
-						}
-					});
-					return next.handle(request);
-				})
-				, catchError(err => {
+		next.handle(request);
+		const refreshToken$ = this.tokenService.refreshToken()
+			.pipe(
+				mergeMap(() => next.handle(this.addTokenToRequest(request))),
+				catchError(err => {
 					this.authService.logout();
 					return throwError(err);
-				}));
+				})
+			);
+
+		return next.handle(this.addTokenToRequest(request)).pipe(
+			catchError(err => iif(
+				() => err.status === 401 && !!this.tokenService.Token,
+				refreshToken$,
+				throwError(err)
+			))
+		);
+	}
+
+	private addTokenToRequest(request: HttpRequest<any>): HttpRequest<any> {
+		return request.clone({
+			setHeaders: {
+				Authorization: `Bearer ${this.tokenService.Token}`
+			}
+		});
 	}
 }
