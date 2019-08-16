@@ -1,9 +1,9 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
-import { iif, Observable, throwError } from 'rxjs';
+import { iif, Observable, of, throwError } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { catchError, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -13,17 +13,22 @@ export class JwtInterceptor implements HttpInterceptor {
 	}
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		next.handle(request);
+		const request$ = of(1)
+			.pipe(mergeMap(() => {
+				const requestWithToken =  this.addTokenToRequest(request);
+				return next.handle(requestWithToken);
+			}));
+
 		const refreshToken$ = this.tokenService.refreshToken()
 			.pipe(
-				mergeMap(() => next.handle(this.addTokenToRequest(request))),
+				mergeMap(() => request$),
 				catchError(err => {
 					this.authService.logout();
 					return throwError(err);
 				})
 			);
 
-		return next.handle(this.addTokenToRequest(request)).pipe(
+		return request$.pipe(
 			catchError(err => iif(
 				() => err.status === 401 && !!this.tokenService.Token,
 				refreshToken$,
