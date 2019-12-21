@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace BLL.Services.FilmFilterService.Filters
 {
-	class DirectorFilter : Filter<IQueryable<Film>>
+	class DirectorFilter : Filter<Film>
 	{
 		public override IQueryable<Film> Handle(ref IQueryable<Film> filmsQuery, IFilmsFilters filters)
 		{

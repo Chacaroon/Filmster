@@ -1,6 +1,7 @@
 import { GenreFilter } from '../filters/genre-filter';
 import { ActorFilter } from '../filters/actor-filter';
 import { DirectorFilter } from '../filters/director-filter';
+import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export class Film {
 	public id: string;
@@ -9,7 +10,7 @@ export class Film {
 	public description: string;
 	public rating: number;
 	public uri: string;
-	public duration: string;
+	public duration: NgbTimeStruct;
 
 	public genres: GenreFilter[];
 	public actors: ActorFilter[];

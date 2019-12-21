@@ -3,8 +3,6 @@ import { TokenService } from '../../services/token/token.service';
 import { UserService } from '../../services/user/user.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
-import { observable, timer } from 'rxjs';
-import { repeat } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-header',
@@ -14,8 +12,6 @@ import { repeat } from 'rxjs/operators';
 export class HeaderComponent implements OnInit {
 
 	public isLoggedOn: boolean;
-
-	time: string;
 
 	constructor(private tokenService: TokenService
 		, protected userService: UserService
@@ -30,13 +26,6 @@ export class HeaderComponent implements OnInit {
 				if (e instanceof NavigationEnd) {
 					this.isLoggedOn = this.tokenService.isLoggedOn;
 				}
-			});
-
-		timer(1)
-			.pipe(repeat())
-			.subscribe(e => {
-				const date = new Date();
-				this.time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 			});
 	}
 

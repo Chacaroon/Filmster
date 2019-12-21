@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190509201345_LinkUserToFilms")]
-    partial class LinkUserToFilms
+    [Migration("20191127185856_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -32,6 +32,53 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Actors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "actor1"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "actor2"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "actor3"
+                        });
+                });
+
+            modelBuilder.Entity("DAL.Entities.Director", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Directors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "director1"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "director2"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "director3"
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Film", b =>
@@ -41,6 +88,8 @@ namespace DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description");
+
+                    b.Property<long>("DirectorId");
 
                     b.Property<TimeSpan>("Duration");
 
@@ -56,9 +105,43 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DirectorId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Films");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            DirectorId = 1L,
+                            Duration = new TimeSpan(0, 0, 0, 0, 0),
+                            Rating = (byte)0,
+                            Title = "film1",
+                            UserId = 1L,
+                            Year = 0
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            DirectorId = 2L,
+                            Duration = new TimeSpan(0, 0, 0, 0, 0),
+                            Rating = (byte)0,
+                            Title = "film2",
+                            UserId = 2L,
+                            Year = 0
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            DirectorId = 3L,
+                            Duration = new TimeSpan(0, 0, 0, 0, 0),
+                            Rating = (byte)0,
+                            Title = "film3",
+                            UserId = 3L,
+                            Year = 0
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.FilmActor", b =>
@@ -72,6 +155,33 @@ namespace DAL.Migrations
                     b.HasIndex("FilmId");
 
                     b.ToTable("FilmActor");
+
+                    b.HasData(
+                        new
+                        {
+                            ActorId = 2L,
+                            FilmId = 1L
+                        },
+                        new
+                        {
+                            ActorId = 3L,
+                            FilmId = 1L
+                        },
+                        new
+                        {
+                            ActorId = 2L,
+                            FilmId = 2L
+                        },
+                        new
+                        {
+                            ActorId = 1L,
+                            FilmId = 3L
+                        },
+                        new
+                        {
+                            ActorId = 3L,
+                            FilmId = 3L
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.FilmGenre", b =>
@@ -85,19 +195,33 @@ namespace DAL.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("FilmGenre");
-                });
 
-            modelBuilder.Entity("DAL.Entities.FilmProducer", b =>
-                {
-                    b.Property<long>("FilmId");
-
-                    b.Property<long>("ProducerId");
-
-                    b.HasKey("FilmId", "ProducerId");
-
-                    b.HasIndex("ProducerId");
-
-                    b.ToTable("FilmProducer");
+                    b.HasData(
+                        new
+                        {
+                            FilmId = 1L,
+                            GenreId = 2L
+                        },
+                        new
+                        {
+                            FilmId = 1L,
+                            GenreId = 3L
+                        },
+                        new
+                        {
+                            FilmId = 2L,
+                            GenreId = 2L
+                        },
+                        new
+                        {
+                            FilmId = 3L,
+                            GenreId = 1L
+                        },
+                        new
+                        {
+                            FilmId = 3L,
+                            GenreId = 3L
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Genre", b =>
@@ -111,19 +235,23 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
-                });
 
-            modelBuilder.Entity("DAL.Entities.Producer", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Producers");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "genre1"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "genre2"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "genre3"
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.User", b =>
@@ -176,6 +304,47 @@ namespace DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "be7a5ca8-d8f3-421f-9d3d-a69cdf7164cd",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKK1+8j9O4pGpAhtYv6Xnz9ESzH49tDexTcUdnLNxID24/zpPCopGc8Der6L8jdbRw==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "59234a74-8080-48e9-851c-f3aff4fa8a96",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "USER1",
+                            PasswordHash = "AQAAAAEAACcQAAAAECPb1WhLRcQ+jZqZnOmKeL5sLfVSCMpvLBLi/HfBhzErtFF+08Csh2tOZnugowb3dw==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "user1"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c5346770-3884-4883-ad3e-0746c86b9c56",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "USER2",
+                            PasswordHash = "AQAAAAEAACcQAAAAEORDNszLL0DLLvQt7z3qMXGpEDKdh8U0MZV/8sOutKdrme/sg4sCBXPvF/hsqbdjwQ==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "user2"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<long>", b =>
@@ -288,6 +457,11 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Entities.Film", b =>
                 {
+                    b.HasOne("DAL.Entities.Director", "Director")
+                        .WithMany()
+                        .HasForeignKey("DirectorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("DAL.Entities.User", "User")
                         .WithMany("Films")
                         .HasForeignKey("UserId")
@@ -317,19 +491,6 @@ namespace DAL.Migrations
                     b.HasOne("DAL.Entities.Genre", "Genre")
                         .WithMany("FilmGenres")
                         .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DAL.Entities.FilmProducer", b =>
-                {
-                    b.HasOne("DAL.Entities.Film", "Film")
-                        .WithMany("FilmProducers")
-                        .HasForeignKey("FilmId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DAL.Entities.Producer", "Producer")
-                        .WithMany("FilmProducers")
-                        .HasForeignKey("ProducerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

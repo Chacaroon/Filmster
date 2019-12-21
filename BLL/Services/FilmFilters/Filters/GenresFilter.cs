@@ -9,7 +9,7 @@ using SharedKernel.Extensions;
 
 namespace BLL.Services.FilmFilterService.Filters
 {
-	class GenresFilter : Filter<IQueryable<Film>>
+	class GenresFilter : Filter<Film>
 	{
 		public override IQueryable<Film> Handle(ref IQueryable<Film> filmsQuery, IFilmsFilters filters)
 		{

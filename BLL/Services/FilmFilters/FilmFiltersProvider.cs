@@ -10,12 +10,12 @@ namespace BLL.Services.FilmFilters
 	{
 		public static void FilterFilms(ref IQueryable<Film> filmsQuery, IFilmsFilters filters)
 		{
-			Filter<IQueryable<Film>> filtersPipeline = new GenresFilter();
+			Filter<Film> filtersPipeline = new GenresFilter();
 
-			filtersPipeline
-				.SetNextFilter(new ActorsFilter())
-				.SetNextFilter(new DirectorFilter())
-				.SetNextFilter(new UserNameFilter());
+			//filtersPipeline
+			//	.SetNextFilter(new ActorsFilter())
+			//	.SetNextFilter(new DirectorFilter())
+			//	.SetNextFilter(new UserNameFilter());
 
 			filtersPipeline.Handle(ref filmsQuery, filters);
 		}

@@ -46,7 +46,8 @@ namespace Filmster
 
 			services.AddHttpContextAccessor();
 
-			services.AddDbContext<ApplicationContext>(options => options.UseInMemoryDatabase("FilmsterDB"));
+			services.AddDbContext<ApplicationContext>(options => 
+				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddIdentity<User, IdentityRole<long>>(options =>
 			        {

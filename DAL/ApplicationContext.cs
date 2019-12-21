@@ -11,7 +11,6 @@ namespace DAL
 		public ApplicationContext(DbContextOptions<ApplicationContext> options)
 			: base(options)
 		{
-            Database.EnsureCreated();
 		}
 
 		public DbSet<Film> Films { get; set; }
@@ -28,6 +27,11 @@ namespace DAL
 
 			modelBuilder.Entity<FilmActor>()
 				.HasKey(fa => new { fa.ActorId, fa.FilmId });
+
+			modelBuilder.Entity<User>()
+				.HasMany(u => u.Films)
+				.WithOne(f => f.User)
+				.HasForeignKey(f => f.UserId);
 
 			#endregion
 

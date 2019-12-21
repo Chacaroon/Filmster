@@ -15,7 +15,7 @@ namespace DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -308,11 +308,11 @@ namespace DAL.Migrations
                         {
                             Id = 1L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2a22a4da-4ef4-463c-9c66-1b7ba7693143",
+                            ConcurrencyStamp = "be7a5ca8-d8f3-421f-9d3d-a69cdf7164cd",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBEAj3jyxjE+bjp8AaFpyPUlspQDHIEGAa2pxuJ4XMWib7YobYV6i97qK+ZrH4xpFQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKK1+8j9O4pGpAhtYv6Xnz9ESzH49tDexTcUdnLNxID24/zpPCopGc8Der6L8jdbRw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "admin"
@@ -321,11 +321,11 @@ namespace DAL.Migrations
                         {
                             Id = 2L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "64ea7eb4-4d11-411f-8be8-98158b7e1f83",
+                            ConcurrencyStamp = "59234a74-8080-48e9-851c-f3aff4fa8a96",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "USER1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAlcZ+JjZmsDaD7Z2obqrp78kOR0jnu2Io490WO4Axal8cMFxKPKVEXgnPnYOPduRA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECPb1WhLRcQ+jZqZnOmKeL5sLfVSCMpvLBLi/HfBhzErtFF+08Csh2tOZnugowb3dw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "user1"
@@ -334,11 +334,11 @@ namespace DAL.Migrations
                         {
                             Id = 3L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "351a5e7b-bf1f-4203-bd54-89a0211438ed",
+                            ConcurrencyStamp = "c5346770-3884-4883-ad3e-0746c86b9c56",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "USER2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIRpGvfkB9qBNy8vkbP5+FftIRnRGV94YktTx0M/VLG1ZMgIdgUPbMvec+aM/0EfrQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEORDNszLL0DLLvQt7z3qMXGpEDKdh8U0MZV/8sOutKdrme/sg4sCBXPvF/hsqbdjwQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "user2"

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.Services.FilmFilters;
 using DAL.Entities;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

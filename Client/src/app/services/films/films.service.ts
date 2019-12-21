@@ -100,20 +100,19 @@ export class FilmsService {
 			});
 	}
 
-	public addFilm(film: any): void {
+	public addFilm(film: any): Observable<any> {
 		film.actorIds = film.actorIds.map((e: BaseFilter) => e.id);
 		film.genreIds = film.genreIds.map((e: BaseFilter) => e.id);
 		film.directorId = film.directorId.id;
 
-		const {hour, minute, second} = film.duration as NgbTimeStruct;
+		const {hour, minute, second} = film.duration;
 
 		film.duration = `${hour}:${minute}:${second}`;
 
-		this.http.post(`${environment.apiUrl}/Films/`, film)
-			.subscribe((res: { id: number }) => {
+		return this.http.post(`${environment.apiUrl}/Films/`, film)
+			.pipe(tap((res: { id: number }) => {
 					this.router.navigate([`films`]);
-				},
-				err => console.error(err));
+				}));
 	}
 
 	private getFilms(): Observable<FilmsResponse> {
