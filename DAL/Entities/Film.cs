@@ -21,8 +21,8 @@ namespace DAL.Entities
 
 		public long DirectorId { get; set; }
 		public Director Director { get; set; }
-		public IEnumerable<FilmGenre> FilmGenres { get; set; }
-		public IEnumerable<FilmActor> FilmActors { get; set; }
+		public ICollection<FilmGenre> FilmGenres { get; set; }
+		public ICollection<FilmActor> FilmActors { get; set; }
 
 		public long UserId { get; set; }
 		public User User { get; set; }

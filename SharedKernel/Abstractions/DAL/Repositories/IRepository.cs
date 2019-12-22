@@ -6,10 +6,11 @@ using System.Text;
 
 namespace SharedKernel.Abstractions.DAL.Repositories
 {
-	public interface IRepository<T> where T : IEntity
+	public interface IRepository<T, TParams> 
+		where T : IEntity
+		where TParams : class
 	{
-		IQueryable<T> GetAll();
-		IQueryable<T> GetAll(Func<T, bool> predicate);
+		IQueryable<T> GetAll(TParams @params = null);
 		T FindById(long id);
 		void Add(T item);
 		void AddRange(IEnumerable<T> item);

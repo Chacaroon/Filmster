@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using BLL.Services.FilmFilters;
 using DAL.Entities;
-using DAL.Repositories;
+using DAL.QueryParams;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using SharedKernel.Abstractions.BLL.DTOs.Films;
 using SharedKernel.Abstractions.BLL.Services;
 using SharedKernel.Abstractions.DAL.Repositories;
@@ -18,11 +16,11 @@ namespace BLL.Services
 {
 	public class FilmService : IFilmService
 	{
-		private readonly IRepository<Film> _filmRepository;
+		private readonly IRepository<Film, FilmParams> _filmRepository;
 		private readonly UserManager<User> _userManager;
 		private readonly HttpContext _httpContext;
 
-		public FilmService(IRepository<Film> filmRepository, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
+		public FilmService(IRepository<Film, FilmParams> filmRepository, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
 		{
 			_filmRepository = filmRepository;
 			_userManager = userManager;
@@ -31,25 +29,17 @@ namespace BLL.Services
 
 		public IFilmsResponseDTO GetAll(IFilmsFilters filters, string orderBy, string searchString = "", int page = 1)
 		{
-			var filmsQuery = _filmRepository.GetAll()
-											.Where(e => EF.Functions.Like(e.Title, $"%{searchString}%"))
-											.AsNoTracking();
-
-			FilmFiltersProvider.FilterFilms(ref filmsQuery, filters);
+			var filmsQuery = _filmRepository.GetAll(new FilmParams
+			{
+				Title = searchString ?? "",
+				GenresFilter = filters.GenreIds ?? new List<long>(),
+				ActorsFilter = filters.ActorIds ?? new List<long>(),
+				DirectorsFilter = filters.DirectorIds ?? new List<long>()
+			});
 
 			var response = Mapper.Map<IFilmsResponseDTO>(filmsQuery);
 
 			return response;
-		}
-
-		public IFilmsResponseDTO FindByTitle(string query)
-		{
-			var films = _filmRepository
-				.GetAll(f => EF.Functions.Like(
-							f.Title,
-							$"%{query}%"));
-
-			return Mapper.Map<IFilmsResponseDTO>(films);
 		}
 
 		public IFilmDTO GetById(long id)

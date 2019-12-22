@@ -8,7 +8,9 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-	public abstract class Repository<T> : IRepository<T> where T : Entity
+	public abstract class Repository<T, TParams> : IRepository<T, TParams> 
+		where T : Entity
+		where TParams : class
 	{
 		protected Repository(ApplicationContext dbContext)
 		{
@@ -25,17 +27,12 @@ namespace DAL.Repositories
 
 		public virtual T FindById(long id)
 		{
-			return GetAll(item => item.Id == id).SingleOrDefault();
+			return GetAll().Where(x => x.Id == id).SingleOrDefault();
 		}
 
-		public virtual IQueryable<T> GetAll()
+		public virtual IQueryable<T> GetAll(TParams @params = null)
 		{
 			return DbContext.Set<T>();
-		}
-		public virtual IQueryable<T> GetAll(Func<T, bool> predicate)
-		{
-			// ReSharper disable once PossibleUnintendedQueryableAsEnumerable
-			return GetAll().Where(predicate).AsQueryable();
 		}
 
 		public virtual void AddRange(IEnumerable<T> item)

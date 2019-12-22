@@ -10,7 +10,6 @@ namespace SharedKernel.Abstractions.BLL.Services
 	public interface IFilmService
 	{
 		IFilmsResponseDTO GetAll(IFilmsFilters filters, string orderBy, string searchString, int page = 1);
-		IFilmsResponseDTO FindByTitle(string query);
 		IFilmDTO GetById(long id);
 		Task<long> Add(IAddFilmDTO dto);
 		void Update(IUpdateFilmDTO dto);

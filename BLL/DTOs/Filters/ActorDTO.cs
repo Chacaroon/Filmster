@@ -10,22 +10,8 @@ namespace BLL.DTOs.Filters
 		public long Id { get; set; }
 		public string Name { get; set; }
 
-		protected bool Equals(ActorDTO other)
-		{
-			return Id == other.Id;
-		}
+		public override bool Equals(object obj) => GetHashCode() == obj?.GetHashCode();
 
-		public override bool Equals(object obj)
-		{
-			if (ReferenceEquals(null, obj)) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			if (obj.GetType() != this.GetType()) return false;
-			return Equals((ActorDTO) obj);
-		}
-
-		public override int GetHashCode()
-		{
-			return Id.GetHashCode();
-		}
+		public override int GetHashCode() => Id.GetHashCode();
 	}
 }

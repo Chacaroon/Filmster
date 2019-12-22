@@ -20,5 +20,9 @@ namespace DAL.Entities
 		{
 			Name = name;
 		}
+
+		public override bool Equals(object obj) => GetHashCode() == obj?.GetHashCode();
+
+		public override int GetHashCode() => Id.GetHashCode();
 	}
 }

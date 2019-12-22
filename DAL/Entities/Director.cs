@@ -8,6 +8,8 @@ namespace DAL.Entities
 	{
 		public string Name { get; set; }
 
+		public Director() { }
+
 		public Director(string name)
 		{
 		    Name = name;

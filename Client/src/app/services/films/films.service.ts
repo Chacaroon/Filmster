@@ -22,7 +22,7 @@ export class FilmsService {
 	private filters = {
 		genreIds: [],
 		actorIds: [],
-		directorId: 0,
+		directorIds: [],
 		searchString: '',
 		page: 1
 	};
@@ -46,9 +46,9 @@ export class FilmsService {
 	}
 
 	public addFilter(filterType: string, value: string) {
-		if (typeof this.filters[filterType] === typeof []) {
+		if (typeof this.filters[filterType] === typeof [])
 			(this.filters[filterType] as Array<any>).push(value);
-		} else
+		else
 			this.filters[filterType] = value;
 
 		this.updateFilmsList();

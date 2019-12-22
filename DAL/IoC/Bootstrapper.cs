@@ -5,6 +5,7 @@ using System.Text;
 using DAL.Entities;
 using DAL.Repositories;
 using SharedKernel.Abstractions.DAL.Repositories;
+using DAL.QueryParams;
 
 namespace DAL.IoC
 {
@@ -12,10 +13,10 @@ namespace DAL.IoC
 	{
 		public static void Bootstrap(Container container)
 		{
-			container.Register<IRepository<Film>, FilmRepository>();
-			container.Register<IRepository<Actor>, ActorRepository>();
-			container.Register<IRepository<Director>, ProducerRepository>();
-			container.Register<IRepository<Genre>, GenreRepository>();
+			container.Register<IRepository<Film, FilmParams>, FilmRepository>();
+			container.Register<IRepository<Actor, ActorParams>, ActorRepository>();
+			container.Register<IRepository<Director, DirectorParams>, ProducerRepository>();
+			container.Register<IRepository<Genre, GenreParams>, GenreRepository>();
 		}
 	}
 }

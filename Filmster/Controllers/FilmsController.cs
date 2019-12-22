@@ -44,12 +44,6 @@ namespace Filmster.Controllers
 			return Ok(response);
 		}
 
-		[HttpGet("Search/{query}")]
-		public ActionResult<FilmsResponseViewModel> Get(string query)
-		{
-			return Ok(Mapper.Map<FilmsResponseViewModel>(_filmService.FindByTitle(query)));
-		}
-
 		// GET: api/Films/5
 		[HttpGet("{id}", Name = "Get")]
 		public ActionResult<FilmViewModel> Get(int id)

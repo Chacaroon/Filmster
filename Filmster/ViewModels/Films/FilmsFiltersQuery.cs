@@ -9,6 +9,6 @@ namespace Filmster.ViewModels.Films
 
 		public IEnumerable<long> GenreIds { get; set; }
 		public IEnumerable<long> ActorIds { get; set; }
-		public long DirectorId { get; set; }
+		public IEnumerable<long> DirectorIds { get; set; }
 	}
 }

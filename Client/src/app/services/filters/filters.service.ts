@@ -32,7 +32,7 @@ export class FiltersService {
 			case 'actorIds':
 				filterType = 'actors';
 				break;
-			case 'directorId':
+			case 'directorIds':
 				filterType = 'directors';
 				break;
 			default:

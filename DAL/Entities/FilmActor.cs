@@ -11,5 +11,9 @@ namespace DAL.Entities
 
 		public long ActorId { get; set; }
 		public Actor Actor { get; set; }
+
+		public override bool Equals(object obj) => GetHashCode() == obj?.GetHashCode();
+
+		public override int GetHashCode() => $"{FilmId}{ActorId}".GetHashCode();
 	}
 }

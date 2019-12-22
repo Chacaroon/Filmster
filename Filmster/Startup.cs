@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using AutoMapper;
 using AutoMapper.Configuration;
 using DAL;
@@ -16,7 +14,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
@@ -75,16 +75,18 @@ namespace Filmster
 						};
 					});
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+			services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Latest);
+			// services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
 
 			services.AddSwaggerGen(c =>
 			{
-				c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			if (env.IsDevelopment())
 			{
@@ -95,6 +97,8 @@ namespace Filmster
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
+
+			app.UseRouting();
 
 			InitializeContainer(app);
 
@@ -107,6 +111,7 @@ namespace Filmster
 			app.UseHttpsRedirection();
 
 			app.UseAuthentication();
+			app.UseAuthorization();
 
 			app.UseSwagger();
 
@@ -115,7 +120,10 @@ namespace Filmster
 				c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
 			});
 
-			app.UseMvc();
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapDefaultControllerRoute();
+			});
 		}
 
 		private void Bootstrap()
@@ -145,7 +153,7 @@ namespace Filmster
 		{
 			// Add application presentation components:
 			_container.RegisterMvcControllers(app);
-			_container.RegisterMvcViewComponents(app);
+			// _container.RegisterMvcViewComponents(app);
 
 			// Allow Simple Injector to resolve services from ASP.NET Core.
 			_container.AutoCrossWireAspNetComponents(app);
